@@ -93,6 +93,164 @@ class RoleController extends Controller
 
         $role = Role::firstOrCreate(['id' => $request['role_id']]);
 
+        if($request->has('time-sheet-index')){
+            $permission = Permission::firstOrCreate(['name' => 'time-sheet-index']);
+            if(!$role->hasPermissionTo('time-sheet-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('time-sheet-index');
+
+        if($request->has('time-sheet-add')){
+            $permission = Permission::firstOrCreate(['name' => 'time-sheet-add']);
+            if(!$role->hasPermissionTo('time-sheet-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('time-sheet-add');
+
+        if($request->has('time-sheet-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'time-sheet-edit']);
+            if(!$role->hasPermissionTo('time-sheet-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('time-sheet-edit');
+
+        if($request->has('time-sheet-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'time-sheet-delete']);
+            if(!$role->hasPermissionTo('time-sheet-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('time-sheet-delete');
+
+
+        if($request->has('mission-order-index')){
+            $permission = Permission::firstOrCreate(['name' => 'mission-order-index']);
+            if(!$role->hasPermissionTo('mission-order-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('mission-order-index');
+
+        if($request->has('mission-order-add')){
+            $permission = Permission::firstOrCreate(['name' => 'mission-order-add']);
+            if(!$role->hasPermissionTo('mission-order-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('mission-order-add');
+
+        if($request->has('mission-order-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'mission-order-edit']);
+            if(!$role->hasPermissionTo('mission-order-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('mission-order-edit');
+
+        if($request->has('mission-order-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'mission-order-delete']);
+            if(!$role->hasPermissionTo('mission-order-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('mission-order-delete');
+
+
+        if($request->has('votes-index')){
+            $permission = Permission::firstOrCreate(['name' => 'votes-index']);
+            if(!$role->hasPermissionTo('votes-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('votes-index');
+
+        if($request->has('votes-add')){
+            $permission = Permission::firstOrCreate(['name' => 'votes-add']);
+            if(!$role->hasPermissionTo('votes-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('votes-add');
+
+        if($request->has('votes-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'votes-edit']);
+            if(!$role->hasPermissionTo('votes-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('votes-edit');
+
+        if($request->has('votes-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'votes-delete']);
+            if(!$role->hasPermissionTo('votes-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('votes-delete');
+
+
+        if($request->has('coins-index')){
+            $permission = Permission::firstOrCreate(['name' => 'coins-index']);
+            if(!$role->hasPermissionTo('coins-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('coins-index');
+
+        if($request->has('coins-add')){
+            $permission = Permission::firstOrCreate(['name' => 'coins-add']);
+            if(!$role->hasPermissionTo('coins-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('coins-add');
+
+        if($request->has('coins-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'coins-edit']);
+            if(!$role->hasPermissionTo('coins-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('coins-edit');
+
+        if($request->has('coins-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'coins-delete']);
+            if(!$role->hasPermissionTo('coins-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('coins-delete');
+
+
+        if($request->has('see-votes')){
+            $permission = Permission::firstOrCreate(['name' => 'see-votes']);
+            if(!$role->hasPermissionTo('see-votes')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('see-votes');
+
+
         if($request->has('expenses-index')){
             $permission = Permission::firstOrCreate(['name' => 'expenses-index']);
             if(!$role->hasPermissionTo('expenses-index')){
@@ -147,6 +305,43 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('department');
 
+
+        if($request->has('employees-index')){
+            $permission = Permission::firstOrCreate(['name' => 'employees-index']);
+            if(!$role->hasPermissionTo('employees-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('employees-index');
+
+        if($request->has('employees-add')){
+            $permission = Permission::firstOrCreate(['name' => 'employees-add']);
+            if(!$role->hasPermissionTo('employees-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('employees-add');
+
+        if($request->has('employees-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'employees-edit']);
+            if(!$role->hasPermissionTo('employees-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('employees-edit');
+
+        if($request->has('employees-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'employees-delete']);
+            if(!$role->hasPermissionTo('employees-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('employees-delete');
+
         if($request->has('users-index')){
             $permission = Permission::firstOrCreate(['name' => 'users-index']);
             if(!$role->hasPermissionTo('users-index')){
@@ -193,6 +388,27 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('general_setting');
 
+
+//        if($request->has('sms_setting')){
+//            $permission = Permission::firstOrCreate(['name' => 'sms_setting']);
+//            if(!$role->hasPermissionTo('sms_setting')){
+//                $role->givePermissionTo($permission);
+//            }
+//        }
+//        else
+//            $role->revokePermissionTo('sms_setting');
+//
+//        if($request->has('create_sms')){
+//            $permission = Permission::firstOrCreate(['name' => 'create_sms']);
+//            if(!$role->hasPermissionTo('create_sms')){
+//                $role->givePermissionTo($permission);
+//            }
+//        }
+//        else
+//            $role->revokePermissionTo('create_sms');
+
+
+
         if($request->has('dashboard')){
             $permission = Permission::firstOrCreate(['name' => 'dashboard']);
             if(!$role->hasPermissionTo('dashboard')){
@@ -220,6 +436,16 @@ class RoleController extends Controller
         }
         else
             $role->revokePermissionTo('currency');
+
+
+        if($request->has('vote-report')){
+            $permission = Permission::firstOrCreate(['name' => 'vote-report']);
+            if(!$role->hasPermissionTo('vote-report')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('vote-report');
 
 
 

@@ -38,6 +38,213 @@
 						        </thead>
 						        <tbody>
 
+                                <tr>
+                                    <td>Time Sheet</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("time-sheet-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="time-sheet-index" name="time-sheet-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="time-sheet-index" name="time-sheet-index">
+                                                @endif
+                                                <label for="time-sheet-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("time-sheet-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="time-sheet-add" name="time-sheet-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="time-sheet-add" name="time-sheet-add">
+                                                @endif
+                                                <label for="time-sheet-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("time-sheet-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="time-sheet-edit" name="time-sheet-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="time-sheet-edit" name="time-sheet-edit">
+                                                @endif
+                                                <label for="time-sheet-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("time-sheet-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="time-sheet-delete" name="time-sheet-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="time-sheet-delete" name="time-sheet-delete">
+                                                @endif
+                                                <label for="time-sheet-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Mission Order</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("mission-order-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="mission-order-index" name="mission-order-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="mission-order-index" name="mission-order-index">
+                                                @endif
+                                                <label for="mission-order-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("mission-order-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="mission-order-add" name="mission-order-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="mission-order-add" name="mission-order-add">
+                                                @endif
+                                                <label for="mission-order-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("mission-order-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="mission-order-edit" name="mission-order-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="mission-order-edit" name="mission-order-edit">
+                                                @endif
+                                                <label for="mission-order-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("mission-order-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="mission-order-delete" name="mission-order-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="mission-order-delete" name="mission-order-delete">
+                                                @endif
+                                                <label for="mission-order-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Donation</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("votes-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="votes-index" name="votes-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="votes-index" name="votes-index">
+                                                @endif
+                                                <label for="votes-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("votes-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="votes-add" name="votes-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="votes-add" name="votes-add">
+                                                @endif
+                                                <label for="votes-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("votes-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="votes-edit" name="votes-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="votes-edit" name="votes-edit">
+                                                @endif
+                                                <label for="votes-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("votes-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="votes-delete" name="votes-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="votes-delete" name="votes-delete">
+                                                @endif
+                                                <label for="votes-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Beyond Coin</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("coins-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="coins-index" name="coins-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="coins-index" name="coins-index">
+                                                @endif
+                                                <label for="coins-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("coins-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="coins-add" name="coins-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="coins-add" name="coins-add">
+                                                @endif
+                                                <label for="coins-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("coins-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="coins-edit" name="coins-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="coins-edit" name="coins-edit">
+                                                @endif
+                                                <label for="coins-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("coins-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="coins-delete" name="coins-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="coins-delete" name="coins-delete">
+                                                @endif
+                                                <label for="coins-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
 
                                 <tr>
 						            <td>{{trans('file.Expense')}}</td>
@@ -91,6 +298,57 @@
 						            </td>
 						        </tr>
 
+						        <tr>
+						            <td>Donee</td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("employees-index", $all_permission))
+								                <input type="checkbox" value="1" id="employees-index" name="employees-index" checked>
+								                @else
+								                <input type="checkbox" value="1" id="employees-index" name="employees-index">
+								                @endif
+								                <label for="employees-index"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("employees-add", $all_permission))
+								                <input type="checkbox" value="1" id="employees-add" name="employees-add" checked>
+								                @else
+								                <input type="checkbox" value="1" id="employees-add" name="employees-add">
+								                @endif
+								                <label for="employees-add"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("employees-edit", $all_permission))
+								                <input type="checkbox" value="1" id="employees-edit" name="employees-edit" checked>
+								                @else
+								                <input type="checkbox" value="1" id="employees-edit" name="employees-edit">
+								                @endif
+								                <label for="employees-edit"></label>
+								            </div>
+						            	</div>
+						            </td>
+						            <td class="text-center">
+						                <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+							                <div class="checkbox">
+								                @if(in_array("employees-delete", $all_permission))
+								                <input type="checkbox" value="1" id="employees-delete" name="employees-delete" checked>
+								                @else
+								                <input type="checkbox" value="1" id="employees-delete" name="employees-delete">
+								                @endif
+								                <label for="employees-delete"></label>
+								            </div>
+						            	</div>
+						            </td>
+						        </tr>
 						        <tr>
 						            <td>{{trans('file.User')}}</td>
 						            <td class="text-center">
@@ -175,7 +433,18 @@
 						        <tr>
 						            <td>{{trans('file.Reports')}}</td>
 						            <td class="report-permissions" colspan="5">
-
+						            	<span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("vote-report", $all_permission))
+							                    	<input type="checkbox" value="1" id="vote-report" name="vote-report" checked>
+							                    	@else
+							                    	<input type="checkbox" value="1" id="vote-report" name="vote-report">
+							                    	@endif
+								                    <label for="vote-report" class="padding05">Voting Rport &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
 
 						            </td>
 						        </tr>
@@ -230,7 +499,42 @@
 								                </div>
 								            </div>
 						                </span>
-
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("see-votes", $all_permission))
+                                                        <input type="checkbox" value="1" id="see-votes" name="see-votes" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="see-votes" name="see-votes">
+                                                    @endif
+								                    <label for="see-votes" class="padding05">Anyone can See Votes &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+{{--						                <span>--}}
+{{--						                    <div aria-checked="false" aria-disabled="false">--}}
+{{--								                <div class="checkbox">--}}
+{{--							                    	@if(in_array("sms_setting", $all_permission))--}}
+{{--							                    	<input type="checkbox" value="1" id="sms_setting" name="sms_setting" checked>--}}
+{{--							                    	@else--}}
+{{--							                    	<input type="checkbox" value="1" id="sms_setting" name="sms_setting">--}}
+{{--							                    	@endif--}}
+{{--								                    <label for="sms_setting" class="padding05">{{trans('file.SMS Setting')}} &nbsp;&nbsp;</label>--}}
+{{--								                </div>--}}
+{{--								            </div>--}}
+{{--						                </span>--}}
+{{--						                <span>--}}
+{{--						                    <div aria-checked="false" aria-disabled="false">--}}
+{{--								                <div class="checkbox">--}}
+{{--							                    	@if(in_array("create_sms", $all_permission))--}}
+{{--							                    	<input type="checkbox" value="1" id="create_sms" name="create_sms" checked>--}}
+{{--							                    	@else--}}
+{{--							                    	<input type="checkbox" value="1" id="create_sms" name="create_sms">--}}
+{{--							                    	@endif--}}
+{{--								                    <label for="create_sms" class="padding05">{{trans('file.Create SMS')}} &nbsp;&nbsp;</label>--}}
+{{--								                </div>--}}
+{{--								            </div>--}}
+{{--						                </span>--}}
 						            </td>
 						        </tr>
 						        </tbody>

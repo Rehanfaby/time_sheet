@@ -19,20 +19,34 @@ Route::group(['middleware' => 'auth'], function() {
 
 //frontend
 
+Route::get('/', 'HomeController@index')->name('home');
 Route::get('/about', 'HomeController@about')->name('about');
 Route::get('/contact', 'HomeController@contact')->name('contact');
 Route::post('/contact/message', 'HomeController@contactMessage')->name('contact.message');
+Route::get('user/signup', 'HomeController@signup')->name('user.signup');
+Route::get('user/login', 'HomeController@login')->name('user.login');
+Route::get('user/contentant', 'HomeController@userContentant')->name('user.contentant');
+Route::get('musician/data/{id}', 'HomeController@employee')->name('musician.data');
+Route::post('musician/find', 'HomeController@employeeFind')->name('musician.find');
+Route::post('musician/vote', 'HomeController@employeeVote')->name('musician.vote');
+Route::get('musician/team', 'HomeController@team')->name('team');
+Route::get('musician/vote/payment', 'HomeController@musicianVotePayment')->name('musician.vote.payment');
+Route::get('musician/vote/payment/coin', 'HomeController@musicianVotePaymentCoin')->name('musician.vote.payment.coin');
+
 
 
 //end frontend
 
 Route::group(['middleware' => ['auth', 'active']], function() {
 
-    Route::get('/', 'HomeController@index')->name('home');
     Route::post('/logout', 'HomeController@logout')->name('logout');
 	Route::get('/otp/screen', 'HomeController@otpCheck')->name('check.otp');
 	Route::post('/otp/screen/store', 'HomeController@otpCheckStore')->name('check.otp.store');
 	Route::get('/admin', 'HomeController@admin');
+	Route::get('/wp', 'HomeController@whatsapp');
+	Route::get('/mmt', 'HomeController@mobileMoneyToken');
+	Route::get('/mmr', 'HomeController@mobileMoneyRequest');
+	Route::get('/mms', 'HomeController@mobileMoneyStatus');
 	Route::get('/dashboard-filter/{start_date}/{end_date}', 'HomeController@dashboardFilter');
 	Route::get('check-batch-availability/{product_id}/{batch_no}/{warehouse_id}', 'ProductController@checkBatchAvailability');
 
@@ -91,7 +105,20 @@ Route::group(['middleware' => ['auth', 'active']], function() {
     Route::get('my-transactions/{year}/{month}', 'HomeController@myTransaction');
 
 
+    Route::resource('votes', 'VoteController');
+    Route::resource('tasks', 'TaskController');
+    Route::resource('workSheet', 'WorkSheetController');
+    Route::post('votes/deletebyselection', 'VoteController@deleteBySelection');
+    Route::resource('judge', 'JudgeController');
+    Route::resource('coins', 'CoinController');
+    Route::post('coins/deletebyselection', 'CoinController@deleteBySelection');
+
+
     Route::get('admin/user', 'UserController@admin')->name('admin.index');
+    Route::get('voter/user', 'UserController@voter')->name('voter.index');
+
+    Route::get('report/voting', 'ReportController@votingReport')->name('voting.report');
+
 
 });
 

@@ -697,5 +697,15 @@ return [
 	"Station Code" => "Station Code",
 	"Initial page" => "Initial page",
 
+
+	"task" => "Task",
+	"hours" => "Hours",
+    'Add Task' => 'Add Task',
+    'Work Sheet' => 'Work Sheet',
+    'New Task' => 'New Task',
+
+    "donations list" => "Donations List",
+    "make donations" => "Make Donations",
+    "donations" => "Donations",
 ];
 ?>
