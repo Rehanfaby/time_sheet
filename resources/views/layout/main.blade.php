@@ -98,21 +98,85 @@
         <!-- Sidebar Header    -->
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
+            <?php $role = DB::table('roles')->find(Auth::user()->role_id); ?>
             <ul id="side-main-menu" class="side-menu list-unstyled">
                 <li><a href="{{url('/')}}"> <i class="dripicons-meter"></i><span>{{ __('file.dashboard') }}</span></a></li>
                 <?php
-                $role = DB::table('roles')->find(Auth::user()->role_id);
-                $index_permission = DB::table('permissions')->where('name', 'votes-index')->first();
+                $region_index = DB::table('permissions')->where('name', 'regions-index')->first();
+                $region_index_active = DB::table('role_has_permissions')->where([
+                    ['permission_id', $region_index->id],
+                    ['role_id', $role->id]
+                ])->first();
+                $region_create = DB::table('permissions')->where('name', 'regions-add')->first();
+                $region_create_active = DB::table('role_has_permissions')->where([
+                    ['permission_id', $region_create->id],
+                    ['role_id', $role->id]
+                ])->first();
+                ?>
+                @if($region_index_active)
+                    <li><a href="#regions" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-map"></i><span>{{trans('file.Regions')}}</span><span></a>
+                        <ul id="regions" class="collapse list-unstyled ">
+                            @if($region_create_active)
+                                <li id="regions-create"><a href="{{route('region.create')}}">{{trans('file.Regions Create')}}</a></li>
+                            @endif
+                            @if($region_index_active)
+                                <li id="regions-menu"><a href="{{route('region.index')}}">{{trans('file.Regions List')}}</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                <?php
+                $projects_index = DB::table('permissions')->where('name', 'projects-index')->first();
+                $projects_index_active = DB::table('role_has_permissions')->where([
+                    ['permission_id', $projects_index->id],
+                    ['role_id', $role->id]
+                ])->first();
+                $projects_create = DB::table('permissions')->where('name', 'projects-add')->first();
+                $projects_create_active = DB::table('role_has_permissions')->where([
+                    ['permission_id', $region_create->id],
+                    ['role_id', $role->id]
+                ])->first();
+                ?>
+                @if($projects_index_active)
+                    <li><a href="#projects" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-pin"></i><span>{{trans('file.Projects')}}</span><span></a>
+                        <ul id="projects" class="collapse list-unstyled ">
+                            @if($projects_create_active)
+                                <li id="projects-create"><a href="{{route('project.create')}}">{{trans('file.Projects Create')}}</a></li>
+                            @endif
+                            @if($projects_index_active)
+                                <li id="projects-menu"><a href="{{route('project.index')}}">{{trans('file.Projects List')}}</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                @endif
+                <?php
+                $index_permission = DB::table('permissions')->where('name', 'task-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
                     ['permission_id', $index_permission->id],
                     ['role_id', $role->id]
                 ])->first();
                 ?>
                 @if($index_permission_active)
-                    <li><a href="#task" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-tasks"></i><span>{{ __('file.Work Sheet') }}</span></a>
+                    <li><a href="#task" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-tasks"></i><span>{{ __('file.task') }}</span></a>
                         <ul id="task" class="collapse list-unstyled ">
-                            <li id="task-menu-create"><a href="{{route('tasks.create')}}">Add Task</a></li>
-                            <li id="task-menu"><a href="{{route('tasks.index')}}">Task List</a></li>
+                            <li id="task-menu-create"><a href="{{route('task.create')}}">{{ __('file.Create Task') }}</a></li>
+                            <li id="task-menu"><a href="{{route('task.index')}}">{{ __('file.Task List') }}</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                @endif
+                <?php
+                $index_permission = DB::table('permissions')->where('name', 'time-sheet-index')->first();
+                $index_permission_active = DB::table('role_has_permissions')->where([
+                    ['permission_id', $index_permission->id],
+                    ['role_id', $role->id]
+                ])->first();
+                ?>
+                @if($index_permission_active)
+                    <li><a href="#timeSheet" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-book"></i><span>{{ __('file.Work Sheet') }}</span></a>
+                        <ul id="timeSheet" class="collapse list-unstyled ">
+                            <li id="timeSheet-menu-create"><a href="{{route('tasks.create')}}">{{ __('file.Fill Time Sheet') }}</a></li>
+                            <li id="timeSheet-menu"><a href="{{route('tasks.index')}}">{{ __('file.Time Sheet List') }}</a></li>
                         </ul>
                     </li>
                     <li>

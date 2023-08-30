@@ -39,6 +39,58 @@
 						        <tbody>
 
                                 <tr>
+                                    <td>Task</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("task-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="task-index" name="task-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="task-index" name="task-index">
+                                                @endif
+                                                <label for="task-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("task-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="task-add" name="task-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="task-add" name="task-add">
+                                                @endif
+                                                <label for="task-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("task-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="task-edit" name="task-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="task-edit" name="task-edit">
+                                                @endif
+                                                <label for="task-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("task-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="task-delete" name="task-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="task-delete" name="task-delete">
+                                                @endif
+                                                <label for="task-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
                                     <td>Time Sheet</td>
                                     <td class="text-center">
                                         <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
@@ -137,6 +189,110 @@
                                                     <input type="checkbox" value="1" id="mission-order-delete" name="mission-order-delete">
                                                 @endif
                                                 <label for="mission-order-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Project</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("projects-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="projects-index" name="projects-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="projects-index" name="projects-index">
+                                                @endif
+                                                <label for="projects-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("projects-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="projects-add" name="projects-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="projects-add" name="projects-add">
+                                                @endif
+                                                <label for="projects-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("projects-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="projects-edit" name="projects-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="projects-edit" name="projects-edit">
+                                                @endif
+                                                <label for="projects-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("projects-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="projects-delete" name="projects-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="projects-delete" name="projects-delete">
+                                                @endif
+                                                <label for="projects-delete"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>Region</td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("regions-index", $all_permission))
+                                                    <input type="checkbox" value="1" id="regions-index" name="regions-index" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="regions-index" name="regions-index">
+                                                @endif
+                                                <label for="regions-index"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue checked" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("regions-add", $all_permission))
+                                                    <input type="checkbox" value="1" id="regions-add" name="regions-add" checked />
+                                                @else
+                                                    <input type="checkbox" value="1" id="regions-add" name="regions-add">
+                                                @endif
+                                                <label for="regions-add"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("regions-edit", $all_permission))
+                                                    <input type="checkbox" value="1" id="regions-edit" name="regions-edit" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="regions-edit" name="regions-edit">
+                                                @endif
+                                                <label for="regions-edit"></label>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="icheckbox_square-blue" aria-checked="false" aria-disabled="false">
+                                            <div class="checkbox">
+                                                @if(in_array("regions-delete", $all_permission))
+                                                    <input type="checkbox" value="1" id="regions-delete" name="regions-delete" checked>
+                                                @else
+                                                    <input type="checkbox" value="1" id="regions-delete" name="regions-delete">
+                                                @endif
+                                                <label for="regions-delete"></label>
                                             </div>
                                         </div>
                                     </td>

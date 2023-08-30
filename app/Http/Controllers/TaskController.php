@@ -91,14 +91,15 @@ class TaskController extends Controller
                  $task_row = DB::table('tasks')->insertGetId([
                      'name'=> $request->new_task[$key],
                      'is_active' => 1,
-                     'order' => 0
+                     'order' => 0,
+                     'created_at' => date('Y-m-d H:i:s')
                  ]);
              }
              TimeSheet::create([
                  'user_id' => Auth::user()->id,
                  'task_id' => $task_row,
                  'hours' => $request->hour[$key],
-                 'date' => $request->date,
+                 'date' => $request->date[$key],
                  'is_active' => 1,
              ]);
         }

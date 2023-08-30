@@ -19,9 +19,9 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="date">Choose Date <strong>*</strong></label>
-                                <input type="date" name="date" class="form-control date" required value="{{ date('Y-m-d') }}">
+                                <input id="parent-date" type="date" name="date" class="form-control date" required>
                             </div>
-                            <div class="col-12 form">
+                            <div class="col-12 form" style="display: none">
                                 <table class="table table-striped">
                                     <thead>
                                     <tr>
@@ -29,7 +29,7 @@
                                         <th>Task</th>
                                         <th>New Task</th>
                                         <th>Hours</th>
-{{--                                        <th>Date</th>--}}
+                                        <th>Date</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,7 +46,7 @@
                                         </td>
                                         <td><input type="text" name="new_task[]" class="form-control new-task-0" readonly></td>
                                         <td><input type="number" name="hour[]" class="form-control" required></td>
-{{--                                        <td><input type="date" name="date[]" class="form-control" required value="{{ date('Y-m-d') }}"></td>--}}
+                                        <td><input type="date" name="date[]" class="form-control date-row" required></td>
                                     </tr>
                                     </tbody>
                                     <tfoot>
@@ -73,9 +73,9 @@
 </section>
 
 <script type="text/javascript">
-    $("ul#task").siblings('a').attr('aria-expanded','true');
-    $("ul#task").addClass("show");
-    $("ul#task #task-menu-create").addClass("active");
+    $("ul#timeSheet").siblings('a').attr('aria-expanded','true');
+    $("ul#timeSheet").addClass("show");
+    $("ul#timeSheet #timeSheet-menu-create").addClass("active");
 
     function newTask(selectObject, id) {
         console.log(selectObject.value, id);
@@ -87,9 +87,11 @@
         }
     }
 
-    // $(".date").on("change",function() {
-    //     $(".form").show(300);
-    // });
+    $(".date").on("change",function() {
+        var parentDate = $("#parent-date").val();
+        $(".date-row").val(parentDate);
+        $(".form").show(300);
+    });
 
 
     // new row
@@ -98,11 +100,13 @@
         $(".add-row").click(function () {
             var newRow = $("<tr>");
             var cols = '';
+            var parentDate = $("#parent-date").val();
 
             cols += '<td><input type="checkbox" name="record"></td>';
             cols += '<td><select class="selectpicker task-'+lineNo+' form-control" data-live-search="true" name="task[]" required  onchange="newTask(this, '+lineNo+')"><option value=""> -- choose -- </option><option value="0"> Add New </option> @foreach($tasks as $task) <option value="{{ $task->id }}"> {{ $task->name }} </option> @endforeach </select></td>';
             cols += '<td><input type="text" name="new_task[]" class="form-control new-task-'+lineNo+'" readonly></td>';
             cols += '<td><input type="number" name="hour[]" class="form-control" required></td>';
+            cols += '<td><input type="date" name="date[]" class="form-control date-row" value="'+parentDate+'" required></td>';
 
             newRow.append(cols);
             $("table tbody").prepend(newRow);

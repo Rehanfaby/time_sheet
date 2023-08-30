@@ -147,9 +147,9 @@
 
 <script type="text/javascript">
 
-    $("ul#task").siblings('a').attr('aria-expanded','true');
-    $("ul#task").addClass("show");
-    $("ul#task #task-menu").addClass("active");
+    $("ul#timeSheet").siblings('a').attr('aria-expanded','true');
+    $("ul#timeSheet").addClass("show");
+    $("ul#timeSheet #timeSheet-menu").addClass("active");
 
 
     $(".daterangepicker-field").daterangepicker({

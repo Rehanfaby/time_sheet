@@ -2,16 +2,16 @@
 @section('content')
 
 @if(session()->has('not_permitted'))
-  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div> 
+  <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div>
 @endif
 @if(session()->has('message1'))
-        <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message1') }}</div> 
+        <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message1') }}</div>
 @endif
 @if(session()->has('message2'))
-        <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message2') }}</div> 
+        <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message2') }}</div>
 @endif
 @if(session()->has('message3'))
-        <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message3') }}</div> 
+        <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message3') }}</div>
 @endif
 <section class="forms">
     <div class="container-fluid">
@@ -51,6 +51,44 @@
                                 <div class="form-group">
                                     <label>{{trans('file.Company Name')}}</strong> </label>
                                     <input type="text" name="company_name" value="{{$lims_user_data->company_name}}" class="form-control" />
+                                </div>
+                                <div class="form-group">
+                                    <label><strong>{{trans('file.Region')}} *</strong></label>
+                                    <select name="region_id" class="selectpicker form-control" data-live-search="true"   title="Select Region...">
+                                        @foreach($regions as $region)
+                                            <option value="{{$region->id}}" {{ $lims_user_data->region_id == $region->id ? 'selected' : '' }}>{{$region->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label><strong>{{trans('file.Projects')}} *</strong></label>
+                                    <select name="project_id[]" class="selectpicker form-control" data-live-search="true"   title="Select Project..." multiple>
+                                        @foreach($projects as $project)
+                                            <option value="{{$project->id}}" {{ in_array($project->id, $user_projects) ? 'selected' : '' }}>{{$project->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label><strong>{{trans('file.Start Weak')}} *</strong></label>
+                                            <select name="weak_start" class="selectpicker form-control" data-live-search="true"   title="Select weak start...">
+                                                @foreach($weak_days as $day)
+                                                    <option value="{{$day}}" {{ $lims_user_data->weak_start == $day ? 'selected' : '' }}>{{$day}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                        <label><strong>{{trans('file.End Weak')}} *</strong></label>
+                                        <select name="weak_end" class="selectpicker form-control" data-live-search="true"   title="Select Weak End...">
+                                            @foreach($weak_days as $day)
+                                                <option value="{{$day}}" {{ $lims_user_data->weak_end == $day ? 'selected' : '' }}>{{$day}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">
@@ -105,7 +143,7 @@
     $("ul#setting").addClass("show");
     $("ul#setting #user-menu").addClass("active");
 
-    
+
 
     $('#confirm_pass').on('input', function(){
 
@@ -113,7 +151,7 @@
             $("#divCheckPasswordMatch").html("Password doesn't match!");
         else
             $("#divCheckPasswordMatch").html("Password matches!");
-         
+
     });
 </script>
 @endsection

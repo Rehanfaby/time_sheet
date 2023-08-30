@@ -93,6 +93,42 @@ class RoleController extends Controller
 
         $role = Role::firstOrCreate(['id' => $request['role_id']]);
 
+        if($request->has('task-index')){
+            $permission = Permission::firstOrCreate(['name' => 'task-index']);
+            if(!$role->hasPermissionTo('task-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task-index');
+
+        if($request->has('task-add')){
+            $permission = Permission::firstOrCreate(['name' => 'task-add']);
+            if(!$role->hasPermissionTo('task-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task-add');
+
+        if($request->has('task-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'task-edit']);
+            if(!$role->hasPermissionTo('task-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task-edit');
+
+        if($request->has('task-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'task-delete']);
+            if(!$role->hasPermissionTo('task-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('task-delete');
+
         if($request->has('time-sheet-index')){
             $permission = Permission::firstOrCreate(['name' => 'time-sheet-index']);
             if(!$role->hasPermissionTo('time-sheet-index')){
@@ -202,6 +238,79 @@ class RoleController extends Controller
         }
         else
             $role->revokePermissionTo('votes-delete');
+
+        if($request->has('projects-index')){
+            $permission = Permission::firstOrCreate(['name' => 'projects-index']);
+            if(!$role->hasPermissionTo('projects-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('projects-index');
+
+        if($request->has('projects-add')){
+            $permission = Permission::firstOrCreate(['name' => 'projects-add']);
+            if(!$role->hasPermissionTo('projects-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('projects-add');
+
+        if($request->has('projects-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'projects-edit']);
+            if(!$role->hasPermissionTo('projects-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('projects-edit');
+
+        if($request->has('projects-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'projects-delete']);
+            if(!$role->hasPermissionTo('projects-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('projects-delete');
+
+
+        if($request->has('regions-index')){
+            $permission = Permission::firstOrCreate(['name' => 'regions-index']);
+            if(!$role->hasPermissionTo('regions-index')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('regions-index');
+
+        if($request->has('regions-add')){
+            $permission = Permission::firstOrCreate(['name' => 'regions-add']);
+            if(!$role->hasPermissionTo('regions-add')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('regions-add');
+
+        if($request->has('regions-edit')){
+            $permission = Permission::firstOrCreate(['name' => 'regions-edit']);
+            if(!$role->hasPermissionTo('regions-edit')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('regions-edit');
+
+        if($request->has('regions-delete')){
+            $permission = Permission::firstOrCreate(['name' => 'regions-delete']);
+            if(!$role->hasPermissionTo('regions-delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('regions-delete');
 
 
         if($request->has('coins-index')){

@@ -699,13 +699,34 @@ return [
 
 
 	"task" => "Task",
+	"Start Weak" => "Start Weak",
+	"End Weak" => "End Weak",
+	"Working Days" => "Working Days",
 	"hours" => "Hours",
     'Add Task' => 'Add Task',
-    'Work Sheet' => 'Work Sheet',
+    'Work Sheet' => 'Time Sheet',
     'New Task' => 'New Task',
+    'Edit Task' => 'Edit Task',
+
+    'Create Task' => 'Create Task',
+    'Task List' => 'Task List',
+    'Fill Time Sheet' => 'Fill Time Sheet',
+    'Time Sheet List' => 'Time Sheet List',
+    'Time Sheet' => 'Time Sheet',
 
     "donations list" => "Donations List",
     "make donations" => "Make Donations",
     "donations" => "Donations",
+
+    "Regions" => "Regions",
+    "Regions List" => "Regions List",
+    "Regions Create" => "Regions Create",
+
+
+    "Projects" => "Projects",
+    "Projects List" => "Projects List",
+    "Projects Create" => "Projects Create",
+    "Add Projects" => "Add Projects",
+    "Edit Project" => "Edit Project",
 ];
 ?>

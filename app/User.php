@@ -12,7 +12,9 @@ class User extends Authenticatable
     use HasRoles;
 
     protected $fillable = [
-        'name', 'email', 'password',"phone","company_name", "role_id", "biller_id", "warehouse_id", "is_active", "is_deleted", "sign", "stemp", "otp", "otp_time", "otp_verify", "beyond_coin"
+        'name', 'email', 'password',"phone","company_name", "role_id", "biller_id",
+        "warehouse_id", "is_active", "is_deleted", "sign", "stemp", "otp", "otp_time",
+        "otp_verify", "region_id", "weak_start", "weak_end"
     ];
 
     protected $hidden = [
@@ -26,5 +28,13 @@ class User extends Authenticatable
 
     public function holiday() {
         return $this->hasMany('App\Holiday');
+    }
+
+    public function region() {
+        return $this->belongsTo('App\Region');
+    }
+
+    public function projects() {
+        return $this->hasMany('App\UserProject');
     }
 }

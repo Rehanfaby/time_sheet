@@ -107,7 +107,10 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 
     Route::resource('votes', 'VoteController');
     Route::resource('tasks', 'TaskController');
+    Route::resource('task', 'ParentTaskController');
     Route::resource('workSheet', 'WorkSheetController');
+    Route::resource('region', 'RegionController');
+    Route::resource('project', 'ProjectController');
     Route::post('votes/deletebyselection', 'VoteController@deleteBySelection');
     Route::resource('judge', 'JudgeController');
     Route::resource('coins', 'CoinController');

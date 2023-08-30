@@ -72,6 +72,28 @@
                                             <input type="text" name="country" class="form-control">
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label><strong>{{trans('file.Start Weak')}} *</strong></label>
+                                                <select name="weak_start" class="selectpicker form-control" data-live-search="true"   title="Select weak start...">
+                                                    @foreach($weak_days as $day)
+                                                        <option value="{{$day}}">{{$day}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label><strong>{{trans('file.End Weak')}} *</strong></label>
+                                                <select name="weak_end" class="selectpicker form-control" data-live-search="true"   title="Select Weak End...">
+                                                    @foreach($weak_days as $day)
+                                                        <option value="{{$day}}">{{$day}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <input class="mt-2" type="checkbox" name="is_active" value="1" checked>
                                         <label class="mt-2"><strong>{{trans('file.Active')}}</strong></label>
@@ -94,6 +116,22 @@
                                         </select>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label><strong>{{trans('file.Projects')}}</strong></label>
+                                        <select name="project_id[]" class="selectpicker form-control" data-live-search="true"   title="Select Project..." multiple>
+                                            @foreach($projects as $project)
+                                                <option value="{{$project->id}}" >{{$project->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><strong>{{trans('file.Region')}}</strong></label>
+                                        <select name="region_id" class="selectpicker form-control" data-live-search="true"   title="Select Region...">
+                                            @foreach($regions as $region)
+                                                <option value="{{$region->id}}" >{{$region->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </form>
@@ -127,46 +165,46 @@
     });
 
     $('select[name="role_id"]').on('change', function() {
-        if($(this).val() == 5) {
-            $('#sign').hide(300);
-            $('#stemp').hide(300);
-            $('#biller-id').hide(300);
-            $('#warehouseId').hide(300);
-            $('.customer-section').show(300);
-            $('.customer-input').prop('required',true);
-            $('select[name="warehouse_id"]').prop('required',false);
-            $('select[name="biller_id"]').prop('required',false);
-        }
-        else if($(this).val() > 2 && $(this).val() < 8 && $(this).val() != 5) {
-            $('select[name="warehouse_id"]').prop('required',true);
-            $('select[name="biller_id"]').prop('required',true);
-            $('#biller-id').show(300);
-            $('#warehouseId').show(300);
-            $('.customer-section').hide(300);
-            $('#sign').hide(300);
-            $('#stemp').hide(300);
-            $('.customer-input').prop('required',false);
-        }
-        else if($(this).val() > 8 || $(this).val() == 1) {
-            $('select[name="warehouse_id"]').prop('required',false);
-            $('select[name="biller_id"]').prop('required',false);
-            $('#biller-id').hide(300);
-            $('#warehouseId').hide(300);
-            $('#sign').show(300);
-            $('#stemp').show(300);
-            $('.customer-section').hide(300);
-            $('.customer-input').prop('required',false);
-        }
-        else {
-            $('select[name="warehouse_id"]').prop('required',false);
-            $('select[name="biller_id"]').prop('required',false);
-            $('#biller-id').hide(300);
-            $('#warehouseId').hide(300);
-            $('#sign').hide(300);
-            $('#stemp').hide(300);
-            $('.customer-section').hide(300);
-            $('.customer-input').prop('required',false);
-        }
+        // if($(this).val() == 5) {
+        //     $('#sign').hide(300);
+        //     $('#stemp').hide(300);
+        //     $('#biller-id').hide(300);
+        //     $('#warehouseId').hide(300);
+        //     $('.customer-section').show(300);
+        //     $('.customer-input').prop('required',true);
+        //     $('select[name="warehouse_id"]').prop('required',false);
+        //     $('select[name="biller_id"]').prop('required',false);
+        // }
+        // else if($(this).val() > 2 && $(this).val() < 8 && $(this).val() != 5) {
+        //     $('select[name="warehouse_id"]').prop('required',true);
+        //     $('select[name="biller_id"]').prop('required',true);
+        //     $('#biller-id').show(300);
+        //     $('#warehouseId').show(300);
+        //     $('.customer-section').hide(300);
+        //     $('#sign').hide(300);
+        //     $('#stemp').hide(300);
+        //     $('.customer-input').prop('required',false);
+        // }
+        // else if($(this).val() > 8 || $(this).val() == 1) {
+        //     $('select[name="warehouse_id"]').prop('required',false);
+        //     $('select[name="biller_id"]').prop('required',false);
+        //     $('#biller-id').hide(300);
+        //     $('#warehouseId').hide(300);
+        //     $('#sign').show(300);
+        //     $('#stemp').show(300);
+        //     $('.customer-section').hide(300);
+        //     $('.customer-input').prop('required',false);
+        // }
+        // else {
+        //     $('select[name="warehouse_id"]').prop('required',false);
+        //     $('select[name="biller_id"]').prop('required',false);
+        //     $('#biller-id').hide(300);
+        //     $('#warehouseId').hide(300);
+        //     $('#sign').hide(300);
+        //     $('#stemp').hide(300);
+        //     $('.customer-section').hide(300);
+        //     $('.customer-input').prop('required',false);
+        // }
     });
 </script>
 @endsection

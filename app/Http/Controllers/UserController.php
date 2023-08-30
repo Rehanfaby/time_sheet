@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Project;
+use App\Region;
+use App\UserProject;
 use Illuminate\Http\Request;
 use App\User;
 use App\Roles;
@@ -68,7 +71,13 @@ class UserController extends Controller
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('users-add')){
             $lims_role_list = Roles::where('is_active', true)->get();
-            return view('user.create', compact('lims_role_list'));
+            $regions = Region::get();
+            $projects = Project::get();
+
+            $user_projects = [];
+            $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+            return view('user.create', compact('lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -98,16 +107,6 @@ class UserController extends Controller
             ],
         ]);
 
-        if($request->role_id == 5) {
-            $this->validate($request, [
-                'phone_number' => [
-                    'max:255',
-                    Rule::unique('customers')->where(function ($query) {
-                        return $query->where('is_active', 1);
-                    }),
-                ],
-            ]);
-        }
         $this->validate($request, [
             'sign' => 'image|mimes:jpg,jpeg,png,gif,svg|max:10000',
         ]);
@@ -133,13 +132,16 @@ class UserController extends Controller
         $data['is_deleted'] = false;
         $data['password'] = bcrypt($data['password']);
         $data['phone'] = $data['phone_number'];
-        User::create($data);
-//        if($data['role_id'] == 5) {
-//            $data['name'] = $data['customer_name'];
-//            $data['phone_number'] = $data['phone'];
-//            $data['is_active'] = true;
-//            Customer::create($data);
-//        }
+        $lims_user_data = User::create($data);
+
+        if(!empty($request->project_id)) {
+            foreach ($request->project_id as $project) {
+                UserProject::create([
+                    'user_id' =>  $lims_user_data->id,
+                    'project_id' =>  $project,
+                ]);
+            }
+        }
         return redirect('user')->with('message1', $message);
     }
 
@@ -147,9 +149,18 @@ class UserController extends Controller
     {
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('users-edit')){
-            $lims_user_data = User::find($id);
+            $lims_user_data = User::with('projects', 'region')->find($id);
             $lims_role_list = Roles::where('is_active', true)->get();
-            return view('user.edit', compact('lims_user_data', 'lims_role_list'));
+            $regions = Region::get();
+            $projects = Project::get();
+
+            $user_projects = [];
+            $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+            foreach ($lims_user_data->projects as $project) {
+                $user_projects[] = $project->project_id;
+            }
+
+            return view('user.edit', compact('lims_user_data', 'lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -168,14 +179,33 @@ class UserController extends Controller
         if(!empty($request['password']))
             $input['password'] = bcrypt($request['password']);
         $lims_user_data = User::find($id);
+
+        UserProject::where('user_id', $lims_user_data->id)->delete();
+        if(!empty($request->project_id)) {
+            foreach ($request->project_id as $project) {
+                UserProject::create([
+                    'user_id' =>  $lims_user_data->id,
+                    'project_id' =>  $project,
+                ]);
+            }
+        }
+
         $lims_user_data->update($input);
         return redirect('user')->with('message2', 'Data updated successfullly');
     }
 
     public function profile($id)
     {
-        $lims_user_data = User::find($id);
-        return view('user.profile', compact('lims_user_data'));
+        $lims_user_data = User::with('projects', 'region')->find($id);
+        $regions = Region::get();
+        $projects = Project::get();
+
+        $user_projects = [];
+        $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        foreach ($lims_user_data->projects as $project) {
+            $user_projects[] = $project->project_id;
+        }
+        return view('user.profile', compact('lims_user_data', 'regions', 'projects', 'user_projects', 'weak_days'));
     }
 
     public function profileUpdate(Request $request, $id)
@@ -186,6 +216,17 @@ class UserController extends Controller
         $input = $request->all();
         $lims_user_data = User::find($id);
         $lims_user_data->update($input);
+
+        UserProject::where('user_id', $lims_user_data->id)->delete();
+        if(!empty($request->project_id)) {
+            foreach ($request->project_id as $project) {
+                UserProject::create([
+                    'user_id' =>  $lims_user_data->id,
+                    'project_id' =>  $project,
+                ]);
+            }
+        }
+
         return redirect()->back()->with('message3', 'Data updated successfullly');
     }
 
