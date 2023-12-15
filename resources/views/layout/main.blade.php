@@ -98,7 +98,15 @@
         <!-- Sidebar Header    -->
         <!-- Sidebar Navigation Menus-->
         <div class="main-menu">
-            <?php $role = DB::table('roles')->find(Auth::user()->role_id); ?>
+            <?php
+            $role = \Spatie\Permission\Models\Role::find(Auth::user()->role_id);
+            if(!isset($all_permission)) {
+                $permissions = $role->permissions;
+                foreach ($permissions as $permission) {
+                    $all_permission[] = $permission->name;
+                }
+            }
+            ?>
             <ul id="side-main-menu" class="side-menu list-unstyled">
                 <li><a href="{{url('/')}}"> <i class="dripicons-meter"></i><span>{{ __('file.dashboard') }}</span></a></li>
                 <?php
@@ -180,6 +188,17 @@
                         </ul>
                     </li>
                     <li>
+                @endif
+                @if(in_array('mission-order-index', $all_permission))
+                    <li><a href="#missions" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-car"></i><span>{{trans('file.Mission Order')}}</span><span></a>
+                        <ul id="missions" class="collapse list-unstyled ">
+                            @if(in_array('mission-order-add', $all_permission))
+                                <li id="missions-create"><a href="{{route('mission.create')}}">{{trans('file.Mission Order Create')}}</a></li>
+                            @endif
+                            <li id="missions-menu"><a href="{{route('mission.index')}}">{{trans('file.Mission Order List')}}</a></li>
+
+                        </ul>
+                    </li>
                 @endif
                 <?php
                 $index_permission = DB::table('permissions')->where('name', 'votes-index')->first();

@@ -168,4 +168,25 @@ class TaskController extends Controller
     {
         //
     }
+
+    public function clone(Request $request) {
+
+        if($request->start_date) {
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+        }
+
+        $tasks = Task::where('is_active', true)->get();
+
+        $data = TimeSheet::select('id', 'user_id', 'task_id', 'hours', 'date')
+            ->where('user_id', Auth::user()->id)
+            ->where('is_active', true)
+            ->whereDate('date', '>=', $start_date)
+            ->whereDate('date', '<=', $end_date)
+            ->orderBy('id', 'desc')
+            ->get();
+
+        return $data;
+
+    }
 }

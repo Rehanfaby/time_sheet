@@ -107,6 +107,8 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 
     Route::resource('votes', 'VoteController');
     Route::resource('tasks', 'TaskController');
+    Route::resource('mission', 'MissionController');
+    Route::get('clone', 'TaskController@clone')->name('clone');
     Route::resource('task', 'ParentTaskController');
     Route::resource('workSheet', 'WorkSheetController');
     Route::resource('region', 'RegionController');

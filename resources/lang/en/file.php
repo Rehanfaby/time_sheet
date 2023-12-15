@@ -699,6 +699,7 @@ return [
 
 
 	"task" => "Task",
+	"Clone Time Sheet" => "Clone Time Sheet",
 	"Start Weak" => "Start Weak",
 	"End Weak" => "End Weak",
 	"Working Days" => "Working Days",
@@ -728,5 +729,13 @@ return [
     "Projects Create" => "Projects Create",
     "Add Projects" => "Add Projects",
     "Edit Project" => "Edit Project",
+
+
+    "Mission Order" => "Mission Order",
+    "Mission Order Create" => "Mission Order Create",
+    "Mission Order List" => "Mission Order List",
+    "Edit Mission Order" => "Edit Mission Order",
+    "Means of Transportation" => "Means of Transportation",
+    "Travelers" => "Travelers",
 ];
 ?>
