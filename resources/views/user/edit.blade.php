@@ -89,7 +89,14 @@
                                             @endforeach
                                         </select>
                                     </div>
-
+                                    <div class="form-group superviser">
+                                        <label><strong>superviser Name</strong></label>
+                                        <select name="superviser_id" class="selectpicker form-control" data-live-search="true"   title="Select superviser...">
+                                            @foreach($supervisers as $superviser)
+                                                <option value="{{$superviser->id}}" {{ $superviser->id == $lims_user_data->superviser_id ? 'selected' : '' }}>{{$superviser->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                     <div class="form-group" id="sign">
                                         <label><strong>{{trans('file.Sign')}} </strong></label>
                                         <input type="file" class="form-control" name="sign">
@@ -147,20 +154,18 @@
 
 
     $('select[name=role_id]').val($("input[name='role_id_hidden']").val());
-    if($('select[name=role_id]').val() > 2 && $('select[name=role_id]').val() == 1){
-        $('#sign').show(300);
-        $('#stemp').show(300);
+    if($('select[name=role_id]').val() != 2){
+        $('.superviser').hide(300);
     }
     $('.selectpicker').selectpicker('refresh');
 
+
     $('select[name="role_id"]').on('change', function() {
-        if($('select[name=role_id]').val() > 2 || $('select[name=role_id]').val() == 1){
-            $('#sign').show(300);
-            $('#stemp').show(300);
+        if($(this).val() == 2) {
+            $('.superviser').show(300);
         }
-        else{
-            $('#sign').hide(300);
-            $('#stemp').hide(300);
+        else {
+            $('.superviser').hide(300);
         }
     });
 

@@ -52,6 +52,14 @@
                                     <label>{{trans('file.Company Name')}}</strong> </label>
                                     <input type="text" name="company_name" value="{{$lims_user_data->company_name}}" class="form-control" />
                                 </div>
+                                <div class="form-group superviser">
+                                    <label><strong>superviser Name</strong></label>
+                                    <select name="superviser_id" class="selectpicker form-control" data-live-search="true"   title="Select superviser...">
+                                        @foreach($supervisers as $superviser)
+                                            <option value="{{$superviser->id}}" {{ $superviser->id == $lims_user_data->superviser_id ? 'selected' : '' }}>{{$superviser->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label><strong>{{trans('file.Region')}} *</strong></label>
                                     <select name="region_id" class="selectpicker form-control" data-live-search="true"   title="Select Region...">
@@ -143,6 +151,10 @@
     $("ul#setting").addClass("show");
     $("ul#setting #user-menu").addClass("active");
 
+    if({{ $lims_user_data->role->id }} != 2){
+        $('.superviser').hide(300);
+    }
+    $('.selectpicker').selectpicker('refresh');
 
 
     $('#confirm_pass').on('input', function(){

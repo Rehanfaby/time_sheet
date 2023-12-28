@@ -186,20 +186,22 @@
                                     <div class="form-group">
                                         <label>{{trans('file.Developed By')}}</label>
                                         <input type="text" name="developed_by" class="form-control" value="{{$lims_general_setting_data->developed_by}}">
+                                        <input type="hidden" name="vote_price" value="{{$lims_general_setting_data->vote_price}}">
+                                        <input type="hidden" name="vote_coin" value="{{$lims_general_setting_data->vote_coin}}">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>1 vote Price</label>
-                                        <input type="text" name="vote_price" class="form-control" value="{{$lims_general_setting_data->vote_price}}">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>1 vote Beyond Coin</label>
-                                        <input type="text" name="vote_coin" class="form-control" value="{{$lims_general_setting_data->vote_coin}}">
-                                    </div>
-                                </div>
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label>1 vote Price</label>--}}
+{{--                                        <input type="text" name="vote_price" class="form-control" value="{{$lims_general_setting_data->vote_price}}">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-md-6">--}}
+{{--                                    <div class="form-group">--}}
+{{--                                        <label>1 vote Beyond Coin</label>--}}
+{{--                                        <input type="text" name="vote_coin" class="form-control" value="{{$lims_general_setting_data->vote_coin}}">--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
                             </div>
                             <div class="form-group">
                                 <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">

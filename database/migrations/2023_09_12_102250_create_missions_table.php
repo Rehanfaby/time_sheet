@@ -16,7 +16,7 @@ class CreateMissionsTable extends Migration
         Schema::create('missions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->string('method');
             $table->string('traveler');
             $table->dateTime('from');

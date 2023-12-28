@@ -107,7 +107,10 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 
     Route::resource('votes', 'VoteController');
     Route::resource('tasks', 'TaskController');
+    Route::get('tasks/index/monthly/{year}/{month}', 'TaskController@sheetMonthly')->name('tasks.index.monthly');
     Route::resource('mission', 'MissionController');
+    Route::get('mission/approve/{id}/{status}', 'MissionController@approve')->name('mission.approve');
+    Route::get('mission/print/{id}', 'MissionController@print')->name('mission.print');
     Route::get('clone', 'TaskController@clone')->name('clone');
     Route::resource('task', 'ParentTaskController');
     Route::resource('workSheet', 'WorkSheetController');
@@ -119,7 +122,10 @@ Route::group(['middleware' => ['auth', 'active']], function() {
     Route::post('coins/deletebyselection', 'CoinController@deleteBySelection');
 
 
-    Route::get('admin/user', 'UserController@admin')->name('admin.index');
+    Route::get('timesheet/generate', 'TimesheetController@generate')->name('timesheet.generate');
+
+
+    Route::get('user/role/{id}', 'UserController@userRole')->name('user.role');
     Route::get('voter/user', 'UserController@voter')->name('voter.index');
 
     Route::get('report/voting', 'ReportController@votingReport')->name('voting.report');

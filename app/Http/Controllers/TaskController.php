@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use App\TimeSheet;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use Spatie\Permission\Models\Role;
@@ -50,14 +51,68 @@ class TaskController extends Controller
         $tasks = Task::where('is_active', true)->get();
 
         $data = TimeSheet::with('task', 'user')
-            ->where('user_id', Auth::user()->id)
             ->where('is_active', true)
             ->whereDate('date', '>=', $start_date)
             ->whereDate('date', '<=', $end_date)
-            ->orderBy('id', 'desc')
-            ->get();
+            ->orderBy('id', 'desc');
+
+
+        if (Auth::user()->role_id == 2) {
+            $data = $data->where('user_id', Auth::user()->id);
+        }
+
+        $data = $data->get();
 
         return view('tasks.index', compact('data', 'start_date', 'end_date', 'tasks'));
+    }
+
+    public function sheetMonthly($year, $month, Request $request)
+    {
+        $user = Auth::user();
+        $role = Role::find($user->role_id);
+        if($request->user_id) {
+            $user_id = $request->user_id;
+        } else {
+            $user_id = $user->id;
+        }
+        if($role->hasPermissionTo('time-sheet-index')){
+            $start = 1;
+            $color = [];
+            $task_data_array = [];
+            $number_of_day = date('t', mktime(0, 0, 0, $month, 1, $year));
+            while($start <= $number_of_day)
+            {
+                $task_data_array[$start] = [];
+                if($start < 10)
+                    $date = $year.'-'.$month.'-0'.$start;
+                else
+                    $date = $year.'-'.$month.'-'.$start;
+
+                $task_data = TimeSheet::whereDate('date', $date)
+                    ->where('user_id', $user_id)
+                    ->where('is_active', 1)
+                    ->get();
+
+                foreach ($task_data as $task) {
+                    $color[$start] = 'green';
+                    $task_data_array[$start][] = @$task->task->name . ' * ' . $task->hours;
+                }
+                $start++;
+            }
+            $start_day = date('w', strtotime($year.'-'.$month.'-01')) + 1;
+            $prev_year = date('Y', strtotime('-1 month', strtotime($year.'-'.$month.'-01')));
+            $prev_month = date('m', strtotime('-1 month', strtotime($year.'-'.$month.'-01')));
+            $next_year = date('Y', strtotime('+1 month', strtotime($year.'-'.$month.'-01')));
+            $next_month = date('m', strtotime('+1 month', strtotime($year.'-'.$month.'-01')));
+            if($role->id == 2) {
+                $lims_user_list = [$user];
+            } else {
+                $lims_user_list = User::where('role_id', 2)->where('is_active', 1)->get();
+            }
+            return view('tasks.index-monthly', compact('color', 'task_data_array', 'lims_user_list', 'start_day', 'year', 'month', 'number_of_day', 'prev_year', 'prev_month', 'next_year', 'next_month', 'user_id'));
+        }
+        else
+            return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
     }
 
     /**

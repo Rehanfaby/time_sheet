@@ -558,7 +558,7 @@
 						        </tr>
 
 						        <tr>
-						            <td>{{trans('file.Accounting')}}</td>
+						            <td>Others</td>
 						            <td class="report-permissions" colspan="5">
 						            	<span>
 						                    <div aria-checked="false" aria-disabled="false">
@@ -581,6 +581,30 @@
                                                         <input type="checkbox" value="1" id="department" name="department">
                                                     @endif
 								                    <label for="department" class="padding05">{{trans('file.Department')}} &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("time-sheet-approve", $all_permission))
+                                                        <input type="checkbox" value="1" id="time-sheet-approve" name="time-sheet-approve" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="time-sheet-approve" name="time-sheet-approve">
+                                                    @endif
+								                    <label for="time-sheet-approve" class="padding05">Time Sheet Approve &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("mission-order-approve", $all_permission))
+                                                        <input type="checkbox" value="1" id="mission-order-approve" name="mission-order-approve" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="mission-order-approve" name="mission-order-approve">
+                                                    @endif
+								                    <label for="mission-order-approve" class="padding05">Mission Order Approve &nbsp;&nbsp;</label>
 								                </div>
 								            </div>
 						                </span>

@@ -62,20 +62,20 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>{{trans('file.Description')}} </label>
-                                    <textarea class="form-control" name="description"  placeholder="Description">{{ $data->description }}</textarea>
+                                    <textarea class="form-control" name="description"  placeholder="Description" id="description">{{ $data->description }}</textarea>
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>{{trans('file.Status')}} *</strong> </label>
-                                    <select name="status" class="form-control selectpicker" data-live-search="true" >
-                                        <option value="0" {{ $data->status == "0" ? "selected" : "" }}>Pending</option>
-                                        <option value="1" {{ $data->status == "1" ? "selected" : "" }}>Approve</option>
-                                        <option value="2" {{ $data->status == "2" ? "selected" : "" }}>Rejected</option>
-                                    </select>
-                                </div>
-                            </div>
+{{--                            <div class="col-md-4">--}}
+{{--                                <div class="form-group">--}}
+{{--                                    <label>{{trans('file.Status')}} *</strong> </label>--}}
+{{--                                    <select name="status" class="form-control selectpicker" data-live-search="true" >--}}
+{{--                                        <option value="0" {{ $data->status == "0" ? "selected" : "" }}>Pending</option>--}}
+{{--                                        <option value="1" {{ $data->status == "1" ? "selected" : "" }}>Approve</option>--}}
+{{--                                        <option value="2" {{ $data->status == "2" ? "selected" : "" }}>Rejected</option>--}}
+{{--                                    </select>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
                             <input type="hidden" name="is_approve" value="0">
                             <input type="hidden" name="created_by" value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
@@ -98,5 +98,17 @@
     $("ul#missions").siblings('a').attr('aria-expanded','true');
     $("ul#missions").addClass("show");
     $("ul#missions #missions-menu").addClass("active");
+
+    tinymce.init({
+        selector: '#description',
+        height: 300,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor textcolor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code wordcount'
+        ],
+        toolbar: 'insert | undo redo |  formatselect | bold italic backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+        branding:false
+    });
 </script>
 @endsection

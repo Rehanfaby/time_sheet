@@ -14,7 +14,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password',"phone","company_name", "role_id", "biller_id",
         "warehouse_id", "is_active", "is_deleted", "sign", "stemp", "otp", "otp_time",
-        "otp_verify", "region_id", "weak_start", "weak_end"
+        "otp_verify", "region_id", "weak_start", "weak_end", "superviser_id"
     ];
 
     protected $hidden = [
@@ -36,5 +36,9 @@ class User extends Authenticatable
 
     public function projects() {
         return $this->hasMany('App\UserProject');
+    }
+
+    public function role() {
+        return $this->belongsTo('App\Roles', 'role_id', 'id');
     }
 }

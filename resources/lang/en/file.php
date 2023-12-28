@@ -706,6 +706,8 @@ return [
 	"hours" => "Hours",
     'Add Task' => 'Add Task',
     'Work Sheet' => 'Time Sheet',
+    'Monthly Time Sheet' => 'Monthly Time Sheet',
+    'Time Sheet Generate' => 'Time Sheet Generate',
     'New Task' => 'New Task',
     'Edit Task' => 'Edit Task',
 

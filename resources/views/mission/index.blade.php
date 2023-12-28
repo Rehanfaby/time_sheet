@@ -34,7 +34,7 @@
             </thead>
             <tbody>
             @foreach($data as $key=>$item)
-                <tr data-id="{{$item->id}}">
+                <tr data-id="{{$item->id}}" class="clickable-row" style="cursor: pointer" data-href="{{ route('mission.show', $item->id) }}">
                     <td>{{$key}}</td>
                     <td>{{ $item->title }}</td>
                     <td>{{ $item->method }}</td>
@@ -61,7 +61,15 @@
                                 </li>
                                 @if(in_array("mission-order-edit", $all_permission))
                                 <li>
-                                        <a href="{{ route('mission.edit', $item->id) }}" class="btn btn-link"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</a>
+                                    <a href="{{ route('mission.edit', $item->id) }}" class="btn btn-link"><i class="dripicons-document-edit"></i> {{trans('file.edit')}}</a>
+                                </li>
+                                @endif
+                                @if(in_array("mission-order-approve", $all_permission))
+                                    <li>
+                                        <a onclick="return confirmApprove(1)" href="{{ route('mission.approve', ['id' => $item->id, 'status' => 1]) }}" class="btn btn-link"><i class="dripicons-checkmark"></i> Approve</a>
+                                    </li>
+                                    <li>
+                                        <a onclick="return confirmApprove(2)" href="{{ route('mission.approve', ['id' => $item->id, 'status' => 2]) }}" class="btn btn-link"><i class="dripicons-cross"></i> Reject</a>
                                     </li>
                                 @endif
                                 @if(in_array("mission-order-delete", $all_permission))
@@ -89,18 +97,27 @@
     $("ul#missions").addClass("show");
     $("ul#missions #missions-menu").addClass("active");
 
-    $(document).ready(function() {
-    $(document).on('click', '.open-EditroleDialog', function() {
-        var url = "role/"
-        var id = $(this).data('id').toString();
-        url = url.concat(id).concat("/edit");
-
-        $.get(url, function(data) {
-            $("input[name='name']").val(data['name']);
-            $("textarea[name='description']").val(data['description']);
-            $("input[name='role_id']").val(data['id']);
+    $(document).ready(function($) {
+        $('.clickable-row td:not(:last-child, :first-child)').click(function () {
+            window.location = $(this).closest('tr').data("href");
         });
     });
+
+    function confirmApprove(status) {
+
+        if (status === 1) {
+            var msg = "Are you sure want to approve this mission order?";
+        } else {
+            var msg = "Are you sure want to reject this mission order?";
+        }
+
+        if (confirm(msg)) {
+            return true;
+        }
+        return false;
+    }
+
+    $(document).ready(function() {
 
     $('#role-table').DataTable( {
         "order": [],

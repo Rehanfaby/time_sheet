@@ -38,15 +38,15 @@ class UserController extends Controller
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
     }
 
-    public function admin()
+    public function userRole($id)
     {
         $role = Role::find(Auth::user()->role_id);
         if($role->hasPermissionTo('users-index')){
             $permissions = Role::findByName($role->name)->permissions;
             foreach ($permissions as $permission)
                 $all_permission[] = $permission->name;
-            $lims_user_list = User::where('is_deleted', false)->where('role_id', 1)->get();
-            return view('user.admin', compact('lims_user_list', 'all_permission'));
+            $lims_user_list = User::where('is_deleted', false)->where('role_id', $id)->get();
+            return view('user.admin', compact('lims_user_list', 'all_permission', 'id'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -73,11 +73,12 @@ class UserController extends Controller
             $lims_role_list = Roles::where('is_active', true)->get();
             $regions = Region::get();
             $projects = Project::get();
+            $supervisers = User::where('is_active', true)->where('role_id', 5)->get();
 
             $user_projects = [];
             $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-            return view('user.create', compact('lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days'));
+            return view('user.create', compact('lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -94,7 +95,7 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => [
                 'max:255',
-                    Rule::unique('users')->where(function ($query) {
+                Rule::unique('users')->where(function ($query) {
                     return $query->where('is_deleted', false);
                 }),
             ],
@@ -115,8 +116,25 @@ class UserController extends Controller
             'stemp' => 'image|mimes:jpg,jpeg,png,gif,svg|max:10000',
         ]);
 
-        $data = $request->all();
+        $data = $request->except('sign', 'stemp');
+        $sign = $request->sign;
+        $stemp = $request->stemp;
+        if ($sign) {
+            $ext = pathinfo($sign->getClientOriginalName(), PATHINFO_EXTENSION);
+            $imageName = preg_replace('/[^a-zA-Z0-9]/', '', $request['sign']);
+            $imageName = $imageName . '.' . $ext;
+            $sign->move('public/images/user', $imageName);
 
+            $data['sign'] = $imageName;
+        }
+        if ($stemp) {
+            $ext = pathinfo($stemp->getClientOriginalName(), PATHINFO_EXTENSION);
+            $imageName = preg_replace('/[^a-zA-Z0-9]/', '', $request['stemp']);
+            $imageName = $imageName . '.' . $ext;
+            $stemp->move('public/images/user', $imageName);
+
+            $data['stemp'] = $imageName;
+        }
         $message = 'User created successfully';
         try {
             Mail::send( 'mail.user_details', $data, function( $message ) use ($data)
@@ -132,16 +150,8 @@ class UserController extends Controller
         $data['is_deleted'] = false;
         $data['password'] = bcrypt($data['password']);
         $data['phone'] = $data['phone_number'];
-        $lims_user_data = User::create($data);
+        User::create($data);
 
-        if(!empty($request->project_id)) {
-            foreach ($request->project_id as $project) {
-                UserProject::create([
-                    'user_id' =>  $lims_user_data->id,
-                    'project_id' =>  $project,
-                ]);
-            }
-        }
         return redirect('user')->with('message1', $message);
     }
 
@@ -153,6 +163,7 @@ class UserController extends Controller
             $lims_role_list = Roles::where('is_active', true)->get();
             $regions = Region::get();
             $projects = Project::get();
+            $supervisers = User::where('is_active', true)->where('role_id', 5)->get();
 
             $user_projects = [];
             $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
@@ -160,7 +171,7 @@ class UserController extends Controller
                 $user_projects[] = $project->project_id;
             }
 
-            return view('user.edit', compact('lims_user_data', 'lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days'));
+            return view('user.edit', compact('lims_user_data', 'lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -173,6 +184,24 @@ class UserController extends Controller
 
 
         $input = $request->except('sign', 'stemp', 'password');
+        $sign = $request->sign;
+        $stemp = $request->stemp;
+        if ($sign) {
+            $ext = pathinfo($sign->getClientOriginalName(), PATHINFO_EXTENSION);
+            $imageName = preg_replace('/[^a-zA-Z0-9]/', '', $request['sign']);
+            $imageName = $imageName . '.' . $ext;
+            $sign->move('public/images/user', $imageName);
+
+            $input['sign'] = $imageName;
+        }
+        if ($stemp) {
+            $ext = pathinfo($stemp->getClientOriginalName(), PATHINFO_EXTENSION);
+            $imageName = preg_replace('/[^a-zA-Z0-9]/', '', $request['stemp']);
+            $imageName = $imageName . '.' . $ext;
+            $stemp->move('public/images/user', $imageName);
+
+            $input['stemp'] = $imageName;
+        }
 
         if(!isset($input['is_active']))
             $input['is_active'] = false;
@@ -202,10 +231,11 @@ class UserController extends Controller
 
         $user_projects = [];
         $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+        $supervisers = User::where('is_active', true)->where('role_id', 5)->get();
         foreach ($lims_user_data->projects as $project) {
             $user_projects[] = $project->project_id;
         }
-        return view('user.profile', compact('lims_user_data', 'regions', 'projects', 'user_projects', 'weak_days'));
+        return view('user.profile', compact('lims_user_data', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers'));
     }
 
     public function profileUpdate(Request $request, $id)

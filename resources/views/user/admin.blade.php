@@ -81,7 +81,7 @@
 
     $("ul#people").siblings('a').attr('aria-expanded','true');
     $("ul#people").addClass("show");
-    $("ul#people #admin-menu").addClass("active");
+    $("ul#people #admin-menu-{{ $id }}").addClass("active");
 
     var user_id = [];
     var user_verified = <?php echo json_encode(env('USER_VERIFIED')) ?>;
