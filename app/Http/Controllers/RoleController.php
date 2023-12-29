@@ -165,6 +165,55 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('time-sheet-delete');
 
+        if($request->has('timesheet_generate')){
+            $permission = Permission::firstOrCreate(['name' => 'timesheet_generate']);
+            if(!$role->hasPermissionTo('timesheet_generate')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('timesheet_generate');
+
+
+        if($request->has('timesheet_report')){
+            $permission = Permission::firstOrCreate(['name' => 'timesheet_report']);
+            if(!$role->hasPermissionTo('timesheet_report')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('timesheet_report');
+
+
+        if($request->has('timesheet_approve')){
+            $permission = Permission::firstOrCreate(['name' => 'timesheet_approve']);
+            if(!$role->hasPermissionTo('timesheet_approve')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('timesheet_approve');
+
+
+        if($request->has('timesheet_sign')){
+            $permission = Permission::firstOrCreate(['name' => 'timesheet_sign']);
+            if(!$role->hasPermissionTo('timesheet_sign')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('timesheet_sign');
+
+
+        if($request->has('timesheet_delete')){
+            $permission = Permission::firstOrCreate(['name' => 'timesheet_delete']);
+            if(!$role->hasPermissionTo('timesheet_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('timesheet_delete');
+
 
         if($request->has('mission-order-index')){
             $permission = Permission::firstOrCreate(['name' => 'mission-order-index']);

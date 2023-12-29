@@ -150,6 +150,7 @@ class UserController extends Controller
         $data['is_deleted'] = false;
         $data['password'] = bcrypt($data['password']);
         $data['phone'] = $data['phone_number'];
+        $data['weak_start'] = implode(',', $data['weak_start']);
         User::create($data);
 
         return redirect('user')->with('message1', $message);
@@ -166,12 +167,16 @@ class UserController extends Controller
             $supervisers = User::where('is_active', true)->where('role_id', 5)->get();
 
             $user_projects = [];
+            $working_days = [];
             $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
             foreach ($lims_user_data->projects as $project) {
                 $user_projects[] = $project->project_id;
             }
+            foreach (explode(',', $lims_user_data->weak_start) as $weak) {
+                $working_days[] = $weak;
+            }
 
-            return view('user.edit', compact('lims_user_data', 'lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers'));
+            return view('user.edit', compact('lims_user_data', 'lims_role_list', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers', 'working_days'));
         }
         else
             return redirect()->back()->with('not_permitted', 'Sorry! You are not allowed to access this module');
@@ -207,6 +212,8 @@ class UserController extends Controller
             $input['is_active'] = false;
         if(!empty($request['password']))
             $input['password'] = bcrypt($request['password']);
+
+        $input['weak_start'] = implode(',', $input['weak_start']);
         $lims_user_data = User::find($id);
 
         UserProject::where('user_id', $lims_user_data->id)->delete();
@@ -230,12 +237,16 @@ class UserController extends Controller
         $projects = Project::get();
 
         $user_projects = [];
+        $working_days = [];
         $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $supervisers = User::where('is_active', true)->where('role_id', 5)->get();
         foreach ($lims_user_data->projects as $project) {
             $user_projects[] = $project->project_id;
         }
-        return view('user.profile', compact('lims_user_data', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers'));
+        foreach (explode(',', $lims_user_data->weak_start) as $weak) {
+            $working_days[] = $weak;
+        }
+        return view('user.profile', compact('lims_user_data', 'regions', 'projects', 'user_projects', 'weak_days', 'supervisers', 'working_days'));
     }
 
     public function profileUpdate(Request $request, $id)
@@ -244,6 +255,7 @@ class UserController extends Controller
             return redirect()->back()->with('not_permitted', 'This feature is disable for demo!');
 
         $input = $request->all();
+        $input['weak_start'] = implode(',', $input['weak_start']);
         $lims_user_data = User::find($id);
         $lims_user_data->update($input);
 

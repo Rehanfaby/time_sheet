@@ -700,6 +700,7 @@ return [
 
 	"task" => "Task",
 	"Clone Time Sheet" => "Clone Time Sheet",
+	"Time Sheet Report" => "Time Sheet Report",
 	"Start Weak" => "Start Weak",
 	"End Weak" => "End Weak",
 	"Working Days" => "Working Days",
@@ -716,6 +717,7 @@ return [
     'Fill Time Sheet' => 'Fill Time Sheet',
     'Time Sheet List' => 'Time Sheet List',
     'Time Sheet' => 'Time Sheet',
+    'Date Range' => 'Date Range',
 
     "donations list" => "Donations List",
     "make donations" => "Make Donations",

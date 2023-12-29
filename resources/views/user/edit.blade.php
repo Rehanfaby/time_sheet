@@ -116,26 +116,26 @@
                                         @endif
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="form-group">
-                                                <label><strong>{{trans('file.Start Weak')}} *</strong></label>
-                                                <select name="weak_start" class="selectpicker form-control" data-live-search="true"   title="Select weak start...">
+                                                <label><strong>Working Days *</strong></label>
+                                                <select name="weak_start[]" class="selectpicker form-control" data-live-search="true" title="Select Working Days..." multiple>
                                                     @foreach($weak_days as $day)
-                                                        <option value="{{$day}}" {{ $lims_user_data->weak_start == $day ? 'selected' : '' }}>{{$day}}</option>
+                                                        <option value="{{$day}}" {{ in_array($day, $working_days) ? 'selected' : '' }}>{{$day}}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label><strong>{{trans('file.End Weak')}} *</strong></label>
-                                                <select name="weak_end" class="selectpicker form-control" data-live-search="true"   title="Select Weak End...">
-                                                    @foreach($weak_days as $day)
-                                                        <option value="{{$day}}" {{ $lims_user_data->weak_end == $day ? 'selected' : '' }}>{{$day}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+{{--                                        <div class="col-md-6">--}}
+{{--                                            <div class="form-group">--}}
+{{--                                                <label><strong>{{trans('file.End Weak')}} *</strong></label>--}}
+{{--                                                <select name="weak_end" class="selectpicker form-control" data-live-search="true"   title="Select Weak End...">--}}
+{{--                                                    @foreach($weak_days as $day)--}}
+{{--                                                        <option value="{{$day}}" {{ $lims_user_data->weak_end == $day ? 'selected' : '' }}>{{$day}}</option>--}}
+{{--                                                    @endforeach--}}
+{{--                                                </select>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
                                     </div>
                                 </div>
                             </div>

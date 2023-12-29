@@ -173,17 +173,23 @@
                     </li>
                     <li>
                 @endif
-                @if(in_array('time-sheet-index', $all_permission))
-                    <li><a href="#timeSheet" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-book"></i><span>{{ __('file.Work Sheet') }}</span></a>
-                        <ul id="timeSheet" class="collapse list-unstyled ">
+                <li><a href="#timeSheet" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-book"></i><span>{{ __('file.Work Sheet') }}</span></a>
+                    <ul id="timeSheet" class="collapse list-unstyled ">
+                        @if(in_array('time-sheet-add', $all_permission))
                             <li id="timeSheet-menu-create"><a href="{{route('tasks.create')}}">{{ __('file.Fill Time Sheet') }}</a></li>
+                        @endif
+                        @if(in_array('time-sheet-index', $all_permission))
                             <li id="timeSheet-menu"><a href="{{route('tasks.index')}}">{{ __('file.Time Sheet List') }}</a></li>
                             <li id="timeSheet-menu-monthly"><a href="{{url('tasks/index/monthly/'.date('Y').'/'.date('m'))}}">{{ __('file.Monthly Time Sheet') }}</a></li>
+                        @endif
+                        @if(in_array('timesheet_generate', $all_permission))
                             <li id="timeSheet-menu-generate"><a href="{{route('timesheet.generate')}}">{{ __('file.Time Sheet Generate') }}</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                @endif
+                        @endif
+                        @if(in_array('timesheet_report', $all_permission))
+                            <li id="timeSheet-menu-report"><a href="{{route('timesheet.report')}}">{{ __('file.Time Sheet Report') }}</a></li>
+                        @endif
+                    </ul>
+                </li>
                 @if(in_array('mission-order-index', $all_permission))
                     <li><a href="#missions" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-car"></i><span>{{trans('file.Mission Order')}}</span><span></a>
                         <ul id="missions" class="collapse list-unstyled ">

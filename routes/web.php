@@ -123,6 +123,12 @@ Route::group(['middleware' => ['auth', 'active']], function() {
 
 
     Route::get('timesheet/generate', 'TimesheetController@generate')->name('timesheet.generate');
+    Route::post('timesheet/generate', 'TimesheetController@generateStore')->name('timesheet.generate');
+    Route::get('timesheet/report', 'TimesheetController@index')->name('timesheet.report');
+    Route::delete('timesheet/destroy/{id}', 'TimesheetController@destroy')->name('timesheet.destroy');
+    Route::get('timesheet/approve/{id}', 'TimesheetController@approve')->name('timesheet.approve');
+    Route::get('timesheet/sign/{id}', 'TimesheetController@sign')->name('timesheet.sign');
+    Route::get('timesheet/show/{id}', 'TimesheetController@show')->name('timesheet.show');
 
 
     Route::get('user/role/{id}', 'UserController@userRole')->name('user.role');

@@ -556,7 +556,71 @@
 						            	</div>
 						            </td>
 						        </tr>
-
+                                <tr>
+                                    <td>Time Sheet Report</td>
+                                    <td class="report-permissions" colspan="5">
+						            	<span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("timesheet_generate", $all_permission))
+                                                        <input type="checkbox" value="1" id="timesheet_generate" name="timesheet_generate" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="timesheet_generate" name="timesheet_generate">
+                                                    @endif
+								                    <label for="timesheet_generate" class="padding05">Timesheet Generate &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("timesheet_report", $all_permission))
+                                                        <input type="checkbox" value="1" id="timesheet_report" name="timesheet_report" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="timesheet_report" name="timesheet_report">
+                                                    @endif
+								                    <label for="timesheet_report" class="padding05"> Report &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("timesheet_approve", $all_permission))
+                                                        <input type="checkbox" value="1" id="timesheet_approve" name="timesheet_approve" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="timesheet_approve" name="timesheet_approve">
+                                                    @endif
+								                    <label for="timesheet_approve" class="padding05"> Approve &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("timesheet_sign", $all_permission))
+                                                        <input type="checkbox" value="1" id="timesheet_sign" name="timesheet_sign" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="timesheet_sign" name="timesheet_sign">
+                                                    @endif
+								                    <label for="timesheet_sign" class="padding05"> Sign &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("timesheet_delete", $all_permission))
+                                                        <input type="checkbox" value="1" id="timesheet_delete" name="timesheet_delete" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="timesheet_delete" name="timesheet_delete">
+                                                    @endif
+								                    <label for="timesheet_delete" class="padding05"> Delete &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                    </td>
+                                </tr>
 						        <tr>
 						            <td>Others</td>
 						            <td class="report-permissions" colspan="5">
