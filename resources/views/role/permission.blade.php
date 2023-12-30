@@ -639,6 +639,18 @@
                                         <span>
 						                    <div aria-checked="false" aria-disabled="false">
 								                <div class="checkbox">
+							                    	@if(in_array("one_time_otp", $all_permission))
+                                                        <input type="checkbox" value="1" id="one_time_otp" name="one_time_otp" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="one_time_otp" name="one_time_otp">
+                                                    @endif
+								                    <label for="one_time_otp" class="padding05">OTP At Login &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
 							                    	@if(in_array("department", $all_permission))
                                                         <input type="checkbox" value="1" id="department" name="department" checked>
                                                     @else

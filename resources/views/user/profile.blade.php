@@ -87,16 +87,6 @@
                                             </select>
                                         </div>
                                     </div>
-{{--                                    <div class="col-md-6">--}}
-{{--                                        <div class="form-group">--}}
-{{--                                        <label><strong>{{trans('file.End Weak')}} *</strong></label>--}}
-{{--                                        <select name="weak_end" class="selectpicker form-control" data-live-search="true"   title="Select Weak End...">--}}
-{{--                                            @foreach($weak_days as $day)--}}
-{{--                                                <option value="{{$day}}" {{ $lims_user_data->weak_end == $day ? 'selected' : '' }}>{{$day}}</option>--}}
-{{--                                            @endforeach--}}
-{{--                                        </select>--}}
-{{--                                    </div>--}}
-{{--                                    </div>--}}
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="{{trans('file.submit')}}" class="btn btn-primary">

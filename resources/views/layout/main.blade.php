@@ -201,38 +201,6 @@
                         </ul>
                     </li>
                 @endif
-{{--                <?php--}}
-{{--                $index_permission = DB::table('permissions')->where('name', 'votes-index')->first();--}}
-{{--                $index_permission_active = DB::table('role_has_permissions')->where([--}}
-{{--                    ['permission_id', $index_permission->id],--}}
-{{--                    ['role_id', $role->id]--}}
-{{--                ])->first();--}}
-{{--                ?>--}}
-{{--                @if($index_permission_active)--}}
-{{--                    <li><a href="#vote" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-dollar"></i><span>{{ __('file.donations') }}</span></a>--}}
-{{--                        <ul id="vote" class="collapse list-unstyled ">--}}
-{{--                            <li id="vote-menu"><a href="{{route('votes.index')}}">{{ __('file.donations list') }}</a></li>--}}
-{{--                            <li id="vote-menu-create"><a id="add-vote" href="">{{ __('file.make donations') }}</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-{{--                <li>--}}
-{{--                @endif--}}
-{{--                <?php--}}
-{{--                $index_permission = DB::table('permissions')->where('name', 'coins-index')->first();--}}
-{{--                $index_permission_active = DB::table('role_has_permissions')->where([--}}
-{{--                    ['permission_id', $index_permission->id],--}}
-{{--                    ['role_id', $role->id]--}}
-{{--                ])->first();--}}
-{{--                ?>--}}
-{{--                @if($index_permission_active)--}}
-{{--                    <li><a href="#coin" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-dollar"></i><span>Coins</span></a>--}}
-{{--                        <ul id="coin" class="collapse list-unstyled ">--}}
-{{--                            <li id="coin-menu"><a href="{{route('coins.index')}}">Coins List</a></li>--}}
-{{--                            <li id="coin-menu-create"><a id="add-coin" href="">Create Coins</a></li>--}}
-{{--                        </ul>--}}
-{{--                    </li>--}}
-{{--                    <li>--}}
-{{--                @endif--}}
                 <?php
                 $index_permission = DB::table('permissions')->where('name', 'expenses-index')->first();
                 $index_permission_active = DB::table('role_has_permissions')->where([
@@ -280,18 +248,18 @@
                     <li><a href="#people" aria-expanded="false" data-toggle="collapse"> <i class="dripicons-user"></i><span>{{trans('file.People')}}</span></a>
                         <ul id="people" class="collapse list-unstyled ">
 
-                                    <?php $user_add_permission_active = DB::table('permissions')
-                                    ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
-                                    ->where([
-                                        ['permissions.name', 'users-add'],
-                                        ['role_id', $role->id] ])->first();
-                                    ?>
-                                @if($user_add_permission_active)
-                                    <li id="user-create-menu"><a href="{{route('user.create')}}">{{trans('file.Add User')}}</a></li>
-                                    <li id="user-list-menu"><a href="{{route('user.index')}}">{{trans('file.User List')}}</a></li>
-                                    @foreach($roles as $rolee)
-                                        <li id="admin-menu-{{$rolee->id}}"><a href="{{route('user.role', ['id' => $rolee->id])}}">{{ $rolee->name }}</a></li>
-                                    @endforeach
+                                <?php $user_add_permission_active = DB::table('permissions')
+                                ->join('role_has_permissions', 'permissions.id', '=', 'role_has_permissions.permission_id')
+                                ->where([
+                                    ['permissions.name', 'users-add'],
+                                    ['role_id', $role->id] ])->first();
+                                ?>
+                            @if($user_add_permission_active)
+                                <li id="user-create-menu"><a href="{{route('user.create')}}">{{trans('file.Add User')}}</a></li>
+                                <li id="user-list-menu"><a href="{{route('user.index')}}">{{trans('file.User List')}}</a></li>
+                                @foreach($roles as $rolee)
+                                    <li id="admin-menu-{{$rolee->id}}"><a href="{{route('user.role', ['id' => $rolee->id])}}">{{ $rolee->name }}</a></li>
+                                @endforeach
                             @endif
                         </ul>
                     </li>

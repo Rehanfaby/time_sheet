@@ -169,8 +169,8 @@ class UserController extends Controller
             $user_projects = [];
             $working_days = [];
             $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
-            foreach ($lims_user_data->projects as $project) {
-                $user_projects[] = $project->project_id;
+            foreach (explode(',', $lims_user_data->project_id) as $project) {
+                $user_projects[] = $project;
             }
             foreach (explode(',', $lims_user_data->weak_start) as $weak) {
                 $working_days[] = $weak;
@@ -240,8 +240,8 @@ class UserController extends Controller
         $working_days = [];
         $weak_days = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
         $supervisers = User::where('is_active', true)->where('role_id', 5)->get();
-        foreach ($lims_user_data->projects as $project) {
-            $user_projects[] = $project->project_id;
+        foreach (explode(',', $lims_user_data->project_id) as $project) {
+            $user_projects[] = $project;
         }
         foreach (explode(',', $lims_user_data->weak_start) as $weak) {
             $working_days[] = $weak;

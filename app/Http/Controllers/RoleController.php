@@ -214,6 +214,15 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('timesheet_delete');
 
+        if($request->has('one_time_otp')){
+            $permission = Permission::firstOrCreate(['name' => 'one_time_otp']);
+            if(!$role->hasPermissionTo('one_time_otp')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('one_time_otp');
+
 
         if($request->has('mission-order-index')){
             $permission = Permission::firstOrCreate(['name' => 'mission-order-index']);

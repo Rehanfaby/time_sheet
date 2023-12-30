@@ -24,6 +24,7 @@ use App\Customer;
 use DB;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Printing;
 use Rawilk\Printing\Contracts\Printer;
 use Spatie\Permission\Models\Role;
@@ -38,24 +39,7 @@ class HomeController extends Controller
 {
     public function dashboard()
     {
-        if(Auth::user()) {
-            $role = Auth::user()->role_id;
-            if($role == 3) {
-                return $this->index();
-            }
-        }
-
-        return view('home');
-    }
-
-    public function about()
-    {
-        return view('frontend.about');
-    }
-
-    public function contact()
-    {
-        return view('frontend.contact');
+        return view('index');
     }
 
      public function contactMessage(Request $request){
@@ -73,221 +57,14 @@ class HomeController extends Controller
 
     public function admin() {
 
-        if(Auth::user()) {
-            $role = Auth::user()->role_id;
-            if($role == 3) {
-                return $this->index();
-            }
-        }
-
         return view('index');
     }
 
-    public function index()
-    {
-
-        $this->checkVotePayment();
-        if(Auth::user()) {
-            $role = Auth::user()->role_id;
-            if($role == 1 || $role == 2) {
-                return $this->admin();
-            }
-        }
-        $musicians = Employee::where('is_active', true)->get();
-        $judges = Judge::where('is_active', true)->get();
-
-
-//        $start_date = date('Y-m-d', strtotime('last monday'));
-//        $end_date = date('Y-m-d');
-
-        $best_musician = DB::table('votes')
-            ->select('votes.musician_id', DB::raw('SUM(votes.vote) as total_vote'))
-            ->join('employees', 'employees.id', '=', 'votes.musician_id')
-//            ->whereDate('votes.created_at', '>=', $start_date)
-//            ->whereDate('votes.created_at', '<=', $end_date)
-            ->where('employees.is_active', true)
-            ->where('votes.status', true)
-            ->orderBy('total_vote', 'desc')
-            ->groupBy('votes.musician_id')
-            ->first();
-
-        if($best_musician != null) {
-            $best_musician  = Employee::find($best_musician->musician_id);
-        } else {
-            $best_musician = DB::table('votes')
-                ->select('votes.musician_id', DB::raw('SUM(votes.vote) as total_vote'))
-                ->join('employees', 'employees.id', '=', 'votes.musician_id')
-                ->where('employees.is_active', true)
-                ->where('votes.status', true)
-                ->orderBy('total_vote', 'desc')
-                ->groupBy('votes.musician_id')
-                ->first();
-
-            if($best_musician != null) {
-                $best_musician  = Employee::find($best_musician->musician_id);
-            }
-        }
-
-        $see_votes = false;
-        $role = Role::first();
-        if($role->hasPermissionTo('see-votes')) {
-        $see_votes = true;
-        }
-
-
-        return view('frontend.home', compact('musicians', 'judges', 'best_musician', 'see_votes'));
-    }
-
-    public function signup()
-    {
-        return view('frontend.signup');
-    }
-
-    public function login()
-    {
-        return view('frontend.login');
-    }
-
-    public function team(){
-        $musicians = Employee::where('is_active', true)->get();
-        return view('frontend.team', compact('musicians'));
-    }
-
-    public function employee($id) {
-        $musician = Employee::find($id);
-        $images = Gallery::where('employee_id', $id)->where('type', 'image')->get();
-        $audios = Gallery::where('employee_id', $id)->where('type', 'audio')->get();
-        $videos = Gallery::where('employee_id', $id)->where('type', 'video')->get();
-        $shorts = Gallery::where('employee_id', $id)->where('type', 'short')->get();
-        $youtubes = Gallery::where('employee_id', $id)->where('type', 'link')->get();
-        $contentants = Employee::where('is_active', true)->get();
-
-
-        $see_votes = false;
-        $role = Role::first();
-        if($role->hasPermissionTo('see-votes')) {
-            $see_votes = true;
-        }
-
-        return view('frontend.employee', compact('musician', 'contentants', 'images', 'audios', 'videos', 'shorts', 'youtubes', 'see_votes'));
-    }
-
-    public function employeeFind(Request $request) {
-        $musicians = Employee::where('name', 'LIKE', '%' . $request->search . '%')->where('is_active', true)->get();
-        return view('frontend.team', compact('musicians'));
-    }
-
-    public function employeeVote(Request $request) {
-        $data = $request->all();
-        $musician = Employee::find($data['musician_id']);
-        return view('frontend.payment', compact('data', 'musician'));
-    }
-
-    public function userContentant() {
-        $votes = vote::where('user_id', Auth::user()->id)->orderBy('id', 'desc')->get();
-        return view('frontend.votes', compact('votes'));
-    }
-
-    public function musicianVotePayment(Request $request) {
-
-        $user = Auth::user() ?? null;
-        $password = rand(1, 999999);
-        $data['is_active'] = true;
-        $data['is_deleted'] = false;
-        $data['password'] = bcrypt($password);
-        $data['name'] = $request->phone;
-        $data['phone'] = $request->phone;
-        $data['email'] = 'user@gmail.com';
-        $data['role_id'] = 3;
-
-        if($data['phone'] == null) {
-            return 'Phone cannot be null';
-        }
-
-        if ($user_check = User::where('phone', $request->phone)->first()) {
-            $user = $user_check;
-        }
-
-        if($user == null) {
-            $user = User::create($data);
-            $this->sendWhatsappMsg($user, $password);
-        }
-
-//        $token = $this->mobileMoneyToken();
-        $token = getenv("MOMO_TOKEN");
-        if($token) {
-            $refernece = $this->mobileMoneyRequest($token, $request->phone, $request->amount);
-            if($refernece) {
-                vote::create([
-                    'user_id' => $user->id,
-                    'musician_id' => $request->musician_id,
-                    'vote' => $request->vote,
-                    'status' => false,
-                    'reference' => $refernece
-                ]);
-
-//                $this->sendWhatsappMsgVoteMomo($user, $request->vote, $request->musician_id);
-                return 'Thank you for your vote, Vote status is pending, please pay your payment in 30 minutes';
-            }
-        }
-        return 'Some thing went wrong, please check your phone number';
-    }
-
-    public function musicianVotePaymentCoin(Request $request) {
-
-        $user = Auth::user() ?? null;
-
-        if ($request->phone_number == '+237' || $request->phone_number == null) {
-            return "Phone number is incorrect";
-        }
-
-        if ($request->code == null) {
-            return "Code is incorrect";
-        }
-
-        $coin_check = Coin::where('phone', $request->phone_number)->where('is_active', true)->where('code', $request->code)->first();
-        if (!$coin_check) {
-            return "You have entered incorrect phone number and code";
-        }
-
-        if ($user == null) {
-            $user = User::where('phone', $request->phone_number)->first();
-        }
-
-        if ($user == null) {
-            $password = rand(1, 999999);
-            $data['is_active'] = true;
-            $data['is_deleted'] = false;
-            $data['password'] = bcrypt($password);
-            $data['name'] = $request->phone_number;
-            $data['phone'] = $request->phone_number;
-            $data['email'] = 'user@gmail.com';
-            $data['role_id'] = 3;
-            $user = User::create($data);
-            $this->sendWhatsappMsg($user, $password);
-        }
-
-        if($request->amount <= $coin_check->coin) {
-            vote::create([
-                'user_id' => $user->id,
-                'musician_id' => $request->musician_id,
-                'vote' => $request->vote,
-                'status' => true,
-                'reference' => rand(1, 999999)
-            ]);
-            $remaining_coin = $coin_check->coin - $request->amount;
-
-            $coin_check->update(['coin' => $remaining_coin]);
-            $this->sendWhatsappMsgVote($user, $request->vote, $request->musician_id, $remaining_coin);
-            return 'Thank you for your vote';
-        }
-
-        return "You don't have enough Coins";
-    }
-
     public function logout() {
+        $user = Auth::user();
+        $user->update(['otp_verify' => '0']);
         Auth::logout();
-        return redirect()->route('home');
+        return redirect()->route('login');
     }
 
     public function otpCheck(){
@@ -319,6 +96,54 @@ class HomeController extends Controller
             }
             return $otp;
         }
+    }
+
+    public function forgotPasswordStore(Request $request)
+    {
+        $user = User::where('phone', $request->phone)->where('role_id', 5)->where('is_active', true)->first();
+        if ($user) {
+            $otp = $this->sendOTP($user);
+            Session::put('otp', $otp);
+            Session::put('user', $user);
+            return view('auth.passwords.otp_screen_verify');
+        }
+
+        return back()->with('not_permitted', 'Your phone number is incorrect...!');
+    }
+
+    public function forgotPasswordCheck(Request $request)
+    {
+        if ($request->otp == Session::get('otp')) {
+            Session::forget('otp');
+            return view('auth.passwords.otp_screen');
+        }
+        return back()->with('not_permitted', 'OTP is incorrect...!');
+    }
+
+    public function forgotPasswordCheckStore(Request $request) {
+        $data = $request->all();
+        $password = mt_rand(100000, 999999);
+
+        if ($data['otp'] == Session::get('otp')) {
+            $user = Session::get('user');
+            User::where('id', $user->id)->update([
+                'password' => bcrypt($password)
+            ]);
+            Session::forget('user');
+
+            $msg = '*Dear* :'. $user->name .' \n\n';
+            $msg .= '*Your new password is:* '. $password . '\n\n';
+
+            try{
+                $this->wpMessage($user->phone, $msg);
+            }
+            catch(\Exception $e){
+            }
+
+            return redirect()->route('login')->with('success', 'Congratulaton: Your password has been updated');
+        }
+
+        return redirect()->back()->with('not_permit', 'Your OTP is incorrect');
     }
 
     public function whatsapp()
