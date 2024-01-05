@@ -29,7 +29,7 @@
                             <div class="col-md-4">
                             <label class="">{{trans('file.Date Range')}} <strong> *</strong> &nbsp;</label>
                                 <div class="input-group">
-                                    <input type="text" class="daterangepicker-field form-control" value="{{@$start_date}} To {{@$end_date}}" required />
+                                    <input type="text" class="daterangepicker-field form-control" value="{{@$start_date}} To {{@$end_date}}" required readonly />
                                     <input type="hidden" name="start_date" value="{{@$start_date}}" />
                                     <input type="hidden" name="end_date" value="{{@$end_date}}" />
                                 </div>

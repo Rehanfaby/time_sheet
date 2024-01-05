@@ -74,6 +74,33 @@ class MissionController extends Controller
         return redirect('mission')->with('message', $msg);
     }
 
+    public function multipleApprove(Request $request)
+    {
+        if ($request->employeeIdArray != null) {
+            foreach ($request->employeeIdArray as $id) {
+                if ($id == null) {
+                    continue;
+                }
+                Mission::where('id', $id)->update(['status' => 1, 'approve_by' => Auth::user()->id, 'approve_on' => date('Y-m-d H:i:s')]);
+            }
+            return 'Selected time sheet reports has been approved successfully!';
+        }
+    }
+
+    public function multipleRemove(Request $request)
+    {
+        if ($request->employeeIdArray != null) {
+            foreach ($request->employeeIdArray as $id) {
+                if ($id == null) {
+                    continue;
+                }
+                Mission::findOrFail($id)->delete();
+            }
+            return 'Selected Missions Order has been deleted successfully!';
+        }
+    }
+
+
     public function print($id) {
         $mission = Mission::where('id', $id)->first();
 

@@ -119,6 +119,14 @@
 
     $(document).ready(function() {
 
+    var employee_id = [];
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     $('#role-table').DataTable( {
         "order": [],
         'language': {
@@ -177,6 +185,59 @@
                     columns: ':visible:Not(.not-exported)',
                     rows: ':visible'
                 },
+            },
+            {
+                text: '<i title="Approve" class="fa fa-check"></i>',
+                action: function ( e, dt, node, config ) {
+                    employee_id.length = 0;
+                    $(':checkbox:checked').each(function(i){
+                        if(i){
+                            employee_id[i-1] = $(this).closest('tr').data('id');
+                        }
+                    });
+                    if(employee_id.length && confirm("Are you sure want to Approve?")) {
+                        $.ajax({
+                            type:'POST',
+                            url:'/mission/approve',
+                            data:{
+                                employeeIdArray: employee_id
+                            },
+                            success:function(data){
+                                alert(data);
+                                location.reload()
+                            }
+                        });
+                    } else {
+                        alert('No Data is selected!');
+                    }
+                }
+            },
+            {
+                text: '<i title="Sign" class="dripicons-cross"></i>',
+                className: 'buttons-delete',
+                action: function ( e, dt, node, config ) {
+                    employee_id.length = 0;
+                    $(':checkbox:checked').each(function(i){
+                        if(i){
+                            employee_id[i-1] = $(this).closest('tr').data('id');
+                        }
+                    });
+                    if(employee_id.length && confirm("Are you sure want to Delete?")) {
+                        $.ajax({
+                            type:'POST',
+                            url:'/mission/remove',
+                            data:{
+                                employeeIdArray: employee_id
+                            },
+                            success:function(data){
+                                alert(data);
+                                location.reload()
+                            }
+                        });
+                    } else {
+                        alert('No Data is selected!');
+                    }
+                }
             },
             {
                 extend: 'colvis',

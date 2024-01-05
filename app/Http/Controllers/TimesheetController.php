@@ -74,12 +74,53 @@ class TimesheetController extends Controller
                     'over_time' => $over_time,
                     'staff' => $request->staffs != null ? implode(',', $request->staffs) : null,
                     'from' => $request->start_date,
-                    'to' => $request->end_date
+                    'to' => $request->end_date,
+                    'description' => $request->description
                 ]);
             }
         }
 
         return back()->with('message', 'time sheet reports has been generated');
+    }
+
+    public function multipleApprove(Request $request)
+    {
+        if ($request->employeeIdArray != null) {
+            foreach ($request->employeeIdArray as $id) {
+                if ($id == null) {
+                    continue;
+                }
+                Timesheetreport::where('id', $id)->update(['is_approve' => 1, 'approved_by' => Auth::user()->id]);
+            }
+            return 'Selected time sheet reports has been approved successfully!';
+        }
+    }
+
+    public function multipleSign(Request $request)
+    {
+//        return $request->employeeIdArray;
+        if ($request->employeeIdArray != null) {
+            foreach ($request->employeeIdArray as $id) {
+                if ($id == null) {
+                    continue;
+                }
+                Timesheetreport::where('id', $id)->update(['is_sign' => 1, 'signed_by' => Auth::user()->id]);
+            }
+            return 'Selected time sheet reports has been Signed successfully!';
+        }
+    }
+
+    public function multipleRemove(Request $request)
+    {
+        if ($request->employeeIdArray != null) {
+            foreach ($request->employeeIdArray as $id) {
+                if ($id == null) {
+                    continue;
+                }
+                Timesheetreport::where('id', $id)->delete();
+            }
+            return 'Selected time sheet reports has been deleted successfully!';
+        }
     }
 
     public function workingDays($working_days, $start, $end)

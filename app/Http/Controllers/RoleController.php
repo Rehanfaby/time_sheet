@@ -260,14 +260,14 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('mission-order-delete');
 
-        if($request->has('time-sheet-approve')){
-            $permission = Permission::firstOrCreate(['name' => 'time-sheet-approve']);
-            if(!$role->hasPermissionTo('time-sheet-approve')){
-                $role->givePermissionTo($permission);
-            }
-        }
-        else
-            $role->revokePermissionTo('time-sheet-approve');
+//        if($request->has('mission-order-sign')){
+//            $permission = Permission::firstOrCreate(['name' => 'mission-order-sign']);
+//            if(!$role->hasPermissionTo('mission-order-sign')){
+//                $role->givePermissionTo($permission);
+//            }
+//        }
+//        else
+//            $role->revokePermissionTo('mission-order-sign');
 
         if($request->has('mission-order-approve')){
             $permission = Permission::firstOrCreate(['name' => 'mission-order-approve']);

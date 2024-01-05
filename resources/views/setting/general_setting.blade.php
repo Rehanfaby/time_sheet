@@ -35,39 +35,39 @@
                                     </span>
                                     @endif
                                 </div>
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>Email Header </label>--}}
-{{--                                        <input type="file" name="email_header" class="form-control" value=""/>--}}
-{{--                                    </div>--}}
-{{--                                    @if($errors->has('email_header'))--}}
-{{--                                        <span>--}}
-{{--                                       <strong>{{ $errors->first('email_header') }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>Email Footer</label>--}}
-{{--                                        <input type="file" name="email_footer" class="form-control" value=""/>--}}
-{{--                                    </div>--}}
-{{--                                    @if($errors->has('email_footer'))--}}
-{{--                                        <span>--}}
-{{--                                       <strong>{{ $errors->first('email_footer') }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
-{{--                                <div class="col-md-6">--}}
-{{--                                    <div class="form-group">--}}
-{{--                                        <label>Email Water Mark</label>--}}
-{{--                                        <input type="file" name="email_water_mark" class="form-control" value=""/>--}}
-{{--                                    </div>--}}
-{{--                                    @if($errors->has('email_water_mark'))--}}
-{{--                                        <span>--}}
-{{--                                       <strong>{{ $errors->first('email_water_mark') }}</strong>--}}
-{{--                                    </span>--}}
-{{--                                    @endif--}}
-{{--                                </div>--}}
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email Header </label>
+                                        <input type="file" name="email_header" class="form-control" value=""/>
+                                    </div>
+                                    @if($errors->has('email_header'))
+                                        <span>
+                                       <strong>{{ $errors->first('email_header') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email Footer</label>
+                                        <input type="file" name="email_footer" class="form-control" value=""/>
+                                    </div>
+                                    @if($errors->has('email_footer'))
+                                        <span>
+                                       <strong>{{ $errors->first('email_footer') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Email Water Mark</label>
+                                        <input type="file" name="email_water_mark" class="form-control" value=""/>
+                                    </div>
+                                    @if($errors->has('email_water_mark'))
+                                        <span>
+                                       <strong>{{ $errors->first('email_water_mark') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>{{trans('file.Currency')}} *</label>

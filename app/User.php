@@ -34,6 +34,10 @@ class User extends Authenticatable
         return $this->belongsTo('App\Region');
     }
 
+    public function superviser() {
+        return $this->belongsTo('App\User', 'superviser_id', 'id');
+    }
+
     public function projects() {
         return $this->hasMany('App\UserProject');
     }

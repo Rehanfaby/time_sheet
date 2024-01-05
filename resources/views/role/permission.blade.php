@@ -660,18 +660,18 @@
 								                </div>
 								            </div>
 						                </span>
-                                        <span>
-						                    <div aria-checked="false" aria-disabled="false">
-								                <div class="checkbox">
-							                    	@if(in_array("time-sheet-approve", $all_permission))
-                                                        <input type="checkbox" value="1" id="time-sheet-approve" name="time-sheet-approve" checked>
-                                                    @else
-                                                        <input type="checkbox" value="1" id="time-sheet-approve" name="time-sheet-approve">
-                                                    @endif
-								                    <label for="time-sheet-approve" class="padding05">Time Sheet Approve &nbsp;&nbsp;</label>
-								                </div>
-								            </div>
-						                </span>
+{{--                                        <span>--}}
+{{--						                    <div aria-checked="false" aria-disabled="false">--}}
+{{--								                <div class="checkbox">--}}
+{{--							                    	@if(in_array("mission-order-sign", $all_permission))--}}
+{{--                                                        <input type="checkbox" value="1" id="mission-order-sign" name="mission-order-sign" checked>--}}
+{{--                                                    @else--}}
+{{--                                                        <input type="checkbox" value="1" id="mission-order-sign" name="mission-order-sign">--}}
+{{--                                                    @endif--}}
+{{--								                    <label for="mission-order-sign" class="padding05">Mission Order Sign &nbsp;&nbsp;</label>--}}
+{{--								                </div>--}}
+{{--								            </div>--}}
+{{--						                </span>--}}
                                         <span>
 						                    <div aria-checked="false" aria-disabled="false">
 								                <div class="checkbox">

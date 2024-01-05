@@ -96,6 +96,8 @@ Route::group(['middleware' => ['auth', 'active']], function() {
     Route::resource('mission', 'MissionController');
     Route::get('mission/approve/{id}/{status}', 'MissionController@approve')->name('mission.approve');
     Route::get('mission/print/{id}', 'MissionController@print')->name('mission.print');
+    Route::post('mission/approve', 'MissionController@multipleApprove')->name('mission.approve.multiple');
+    Route::post('mission/remove', 'MissionController@multipleRemove')->name('mission.remove.multiple');
     Route::get('clone', 'TaskController@clone')->name('clone');
     Route::resource('task', 'ParentTaskController');
     Route::resource('workSheet', 'WorkSheetController');
@@ -110,6 +112,9 @@ Route::group(['middleware' => ['auth', 'active']], function() {
     Route::get('timesheet/generate', 'TimesheetController@generate')->name('timesheet.generate');
     Route::post('timesheet/generate', 'TimesheetController@generateStore')->name('timesheet.generate');
     Route::get('timesheet/report', 'TimesheetController@index')->name('timesheet.report');
+    Route::post('timesheet/report/approve', 'TimesheetController@multipleApprove')->name('timesheet.report.approve');
+    Route::post('timesheet/report/sign', 'TimesheetController@multipleSign')->name('timesheet.report.sign');
+    Route::post('timesheet/report/remove', 'TimesheetController@multipleRemove')->name('timesheet.report.remove');
     Route::delete('timesheet/destroy/{id}', 'TimesheetController@destroy')->name('timesheet.destroy');
     Route::get('timesheet/approve/{id}', 'TimesheetController@approve')->name('timesheet.approve');
     Route::get('timesheet/sign/{id}', 'TimesheetController@sign')->name('timesheet.sign');

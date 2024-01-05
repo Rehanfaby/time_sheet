@@ -6,6 +6,7 @@
                 <a href="{{route('timesheet.report')}}" class="btn btn-info"><i class="dripicons-list"></i> Time Sheer Report </a>
                 <a id="print-btn" class="btn btn-warning"><i class="dripicons-print"></i> {{trans('file.Print')}} </a>
                 <div class="card" style="padding: 0 200px" id="mission-show">
+                    <img src="{{url('public/logo', $general_setting->email_header)}}" style=" width: 100%;">
                     <center><h1>{{trans('file.Time Sheet Report')}}</h1></center>
                     <h2>Time Sheet Report No: {{ $data->id }}</h2>
                     <div class="card-body">
@@ -22,8 +23,8 @@
                             <div class="col-md-3"><h3>Over Time : </h3></div>
                             <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ $data->over_time }} hours</h6></div>
 
-                            <div class="col-md-3"><h3>Deliverd By : </h3></div>
-                            <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ @$data->user->name }}</h6></div>
+                            <div class="col-md-3"><h3>Superviser : </h3></div>
+                            <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ @$data->user->superviser->name }}</h6></div>
 
                             <div class="col-md-4 pt-4">
                                 <h3>From : <span>_____________</span></h3>
@@ -64,6 +65,7 @@
                             </div>
                         </div>
                     </div>
+                    <img src="{{url('public/logo', $general_setting->email_footer)}}" style=" width: 100%;">
                 </div>
             </div>
         </div>

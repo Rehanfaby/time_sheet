@@ -101,7 +101,7 @@
     $("ul#timeSheet #timeSheet-menu-report").addClass("active");
 
     $(document).ready(function($) {
-        $('.clickable-row td:not(:last-child)').click(function () {
+        $('.clickable-row td:not(:first-child):not(:last-child)').click(function () {
             window.location = $(this).closest('tr').data("href");
         });
     });
@@ -116,16 +116,6 @@
             $('input[name="end_date"]').val(end_date);
         }
     });
-
-    function newTask(selectObject, id) {
-        console.log(selectObject.value, id);
-        if(selectObject.value == 0) {
-            $('.new-task-'+id).prop("readonly", false);
-        }
-        if(selectObject.value != 0) {
-            $('.new-task-'+id).prop("readonly", true);
-        }
-    }
 
     var employee_id = [];
     var user_verified = <?php echo json_encode(env('USER_VERIFIED')) ?>;
@@ -247,37 +237,87 @@
                     stripHtml: false
                 },
             },
-            // {
-            //     text: '<i title="delete" class="dripicons-cross"></i>',
-            //     className: 'buttons-delete',
-            //     action: function ( e, dt, node, config ) {
-            //         if(user_verified == '1') {
-            //             employee_id.length = 0;
-            //             $(':checkbox:checked').each(function(i){
-            //                 if(i){
-            //                     employee_id[i-1] = $(this).closest('tr').data('id');
-            //                 }
-            //             });
-            //             if(employee_id.length && confirm("Are you sure want to delete?")) {
-            //                 $.ajax({
-            //                     type:'POST',
-            //                     url:'musician/deletebyselection',
-            //                     data:{
-            //                         employeeIdArray: employee_id
-            //                     },
-            //                     success:function(data){
-            //                         alert(data);
-            //                     }
-            //                 });
-            //                 dt.rows({ page: 'current', selected: true }).remove().draw(false);
-            //             }
-            //             else if(!employee_id.length)
-            //                 alert('No employee is selected!');
-            //         }
-            //         else
-            //             alert('This feature is disable for demo!');
-            //     }
-            // },
+            {
+                text: '<i title="Approve" class="fa fa-check"></i>',
+                className: 'buttons-delete',
+                action: function ( e, dt, node, config ) {
+                    employee_id.length = 0;
+                    $(':checkbox:checked').each(function(i){
+                        if(i){
+                            employee_id[i-1] = $(this).closest('tr').data('id');
+                        }
+                    });
+                    if(employee_id.length && confirm("Are you sure want to Approve?")) {
+                        $.ajax({
+                            type:'POST',
+                            url:'/timesheet/report/approve',
+                            data:{
+                                employeeIdArray: employee_id
+                            },
+                            success:function(data){
+                                alert(data);
+                                location.reload()
+                            }
+                        });
+                    } else {
+                        alert('No Data is selected!');
+                    }
+                }
+            },
+            {
+                text: '<i title="Sign" class="fa fa-pencil"></i>',
+
+                action: function ( e, dt, node, config ) {
+                    employee_id.length = 0;
+                    $(':checkbox:checked').each(function(i){
+                        if(i){
+                            employee_id[i-1] = $(this).closest('tr').data('id');
+                        }
+                    });
+                    if(employee_id.length && confirm("Are you sure want to Sign?")) {
+                        $.ajax({
+                            type:'POST',
+                            url:'/timesheet/report/sign',
+                            data:{
+                                employeeIdArray: employee_id
+                            },
+                            success:function(data){
+                                alert(data);
+                                location.reload()
+                            }
+                        });
+                    } else {
+                        alert('No Data is selected!');
+                    }
+                }
+            },
+            {
+                text: '<i title="Sign" class="dripicons-cross"></i>',
+                className: 'buttons-delete',
+                action: function ( e, dt, node, config ) {
+                    employee_id.length = 0;
+                    $(':checkbox:checked').each(function(i){
+                        if(i){
+                            employee_id[i-1] = $(this).closest('tr').data('id');
+                        }
+                    });
+                    if(employee_id.length && confirm("Are you sure want to Delete?")) {
+                        $.ajax({
+                            type:'POST',
+                            url:'/timesheet/report/remove',
+                            data:{
+                                employeeIdArray: employee_id
+                            },
+                            success:function(data){
+                                alert(data);
+                                location.reload()
+                            }
+                        });
+                    } else {
+                        alert('No Data is selected!');
+                    }
+                }
+            },
             {
                 extend: 'colvis',
                 text: '<i title="column visibility" class="fa fa-eye"></i>',
