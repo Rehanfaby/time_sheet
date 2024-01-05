@@ -76,28 +76,36 @@ class MissionController extends Controller
 
     public function multipleApprove(Request $request)
     {
-        if ($request->employeeIdArray != null) {
-            foreach ($request->employeeIdArray as $id) {
-                if ($id == null) {
-                    continue;
+        $role = Role::find(Auth::user()->role_id);
+        if($role->hasPermissionTo('mission-order-approve')) {
+            if ($request->employeeIdArray != null) {
+                foreach ($request->employeeIdArray as $id) {
+                    if ($id == null) {
+                        continue;
+                    }
+                    Mission::where('id', $id)->update(['status' => 1, 'approve_by' => Auth::user()->id, 'approve_on' => date('Y-m-d H:i:s')]);
                 }
-                Mission::where('id', $id)->update(['status' => 1, 'approve_by' => Auth::user()->id, 'approve_on' => date('Y-m-d H:i:s')]);
+                return 'Selected Mission Order has been approved successfully!';
             }
-            return 'Selected time sheet reports has been approved successfully!';
         }
+        return "Sorry, You don't have permissions";
     }
 
     public function multipleRemove(Request $request)
     {
-        if ($request->employeeIdArray != null) {
-            foreach ($request->employeeIdArray as $id) {
-                if ($id == null) {
-                    continue;
+        $role = Role::find(Auth::user()->role_id);
+        if($role->hasPermissionTo('mission-order-delete')) {
+            if ($request->employeeIdArray != null) {
+                foreach ($request->employeeIdArray as $id) {
+                    if ($id == null) {
+                        continue;
+                    }
+                    Mission::findOrFail($id)->delete();
                 }
-                Mission::findOrFail($id)->delete();
+                return 'Selected Missions Order has been deleted successfully!';
             }
-            return 'Selected Missions Order has been deleted successfully!';
         }
+        return "Sorry, You don't have permissions";
     }
 
 

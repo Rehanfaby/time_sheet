@@ -85,42 +85,53 @@ class TimesheetController extends Controller
 
     public function multipleApprove(Request $request)
     {
-        if ($request->employeeIdArray != null) {
-            foreach ($request->employeeIdArray as $id) {
-                if ($id == null) {
-                    continue;
+        $role = Role::find(Auth::user()->role_id);
+        if($role->hasPermissionTo('timesheet_approve')) {
+            if ($request->employeeIdArray != null) {
+                foreach ($request->employeeIdArray as $id) {
+                    if ($id == null) {
+                        continue;
+                    }
+                    Timesheetreport::where('id', $id)->update(['is_approve' => 1, 'approved_by' => Auth::user()->id]);
                 }
-                Timesheetreport::where('id', $id)->update(['is_approve' => 1, 'approved_by' => Auth::user()->id]);
+                return 'Selected time sheet reports has been approved successfully!';
             }
-            return 'Selected time sheet reports has been approved successfully!';
         }
+        return "Sorry, You don't have permissions";
     }
 
     public function multipleSign(Request $request)
     {
-//        return $request->employeeIdArray;
-        if ($request->employeeIdArray != null) {
-            foreach ($request->employeeIdArray as $id) {
-                if ($id == null) {
-                    continue;
+        $role = Role::find(Auth::user()->role_id);
+        if($role->hasPermissionTo('timesheet_sign')) {
+            if ($request->employeeIdArray != null) {
+                foreach ($request->employeeIdArray as $id) {
+                    if ($id == null) {
+                        continue;
+                    }
+                    Timesheetreport::where('id', $id)->update(['is_sign' => 1, 'signed_by' => Auth::user()->id]);
                 }
-                Timesheetreport::where('id', $id)->update(['is_sign' => 1, 'signed_by' => Auth::user()->id]);
+                return 'Selected time sheet reports has been Signed successfully!';
             }
-            return 'Selected time sheet reports has been Signed successfully!';
         }
+        return "Sorry, You don't have permissions";
     }
 
     public function multipleRemove(Request $request)
     {
-        if ($request->employeeIdArray != null) {
-            foreach ($request->employeeIdArray as $id) {
-                if ($id == null) {
-                    continue;
+        $role = Role::find(Auth::user()->role_id);
+        if($role->hasPermissionTo('timesheet_delete')) {
+            if ($request->employeeIdArray != null) {
+                foreach ($request->employeeIdArray as $id) {
+                    if ($id == null) {
+                        continue;
+                    }
+                    Timesheetreport::where('id', $id)->delete();
                 }
-                Timesheetreport::where('id', $id)->delete();
+                return 'Selected time sheet reports has been deleted successfully!';
             }
-            return 'Selected time sheet reports has been deleted successfully!';
         }
+        return "Sorry, You don't have permissions";
     }
 
     public function workingDays($working_days, $start, $end)
