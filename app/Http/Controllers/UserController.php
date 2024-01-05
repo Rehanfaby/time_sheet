@@ -150,7 +150,8 @@ class UserController extends Controller
         $data['is_deleted'] = false;
         $data['password'] = bcrypt($data['password']);
         $data['phone'] = $data['phone_number'];
-        $data['weak_start'] = implode(',', $data['weak_start']);
+        $data['weak_start'] =  isset($data['weak_start']) ? implode(',', $data['weak_start']) : null;
+        $data['project_id'] =  isset($data['project_id']) ? implode(',', $data['project_id']) : null;
         User::create($data);
 
         return redirect('user')->with('message1', $message);
@@ -213,18 +214,9 @@ class UserController extends Controller
         if(!empty($request['password']))
             $input['password'] = bcrypt($request['password']);
 
-        $input['weak_start'] = implode(',', $input['weak_start']);
+        $input['weak_start'] = isset($input['weak_start']) ? implode(',', $input['weak_start']) : null;
+        $input['project_id'] = isset($input['project_id']) ? implode(',', $input['project_id']) : null;
         $lims_user_data = User::find($id);
-
-        UserProject::where('user_id', $lims_user_data->id)->delete();
-        if(!empty($request->project_id)) {
-            foreach ($request->project_id as $project) {
-                UserProject::create([
-                    'user_id' =>  $lims_user_data->id,
-                    'project_id' =>  $project,
-                ]);
-            }
-        }
 
         $lims_user_data->update($input);
         return redirect('user')->with('message2', 'Data updated successfullly');
@@ -255,19 +247,10 @@ class UserController extends Controller
             return redirect()->back()->with('not_permitted', 'This feature is disable for demo!');
 
         $input = $request->all();
-        $input['weak_start'] = implode(',', $input['weak_start']);
+        $input['weak_start'] = isset($input['weak_start']) ? implode(',', $input['weak_start']) : null;
+        $input['project_id'] = isset($input['project_id']) ? implode(',', $input['project_id']) : null;
         $lims_user_data = User::find($id);
         $lims_user_data->update($input);
-
-        UserProject::where('user_id', $lims_user_data->id)->delete();
-        if(!empty($request->project_id)) {
-            foreach ($request->project_id as $project) {
-                UserProject::create([
-                    'user_id' =>  $lims_user_data->id,
-                    'project_id' =>  $project,
-                ]);
-            }
-        }
 
         return redirect()->back()->with('message3', 'Data updated successfullly');
     }

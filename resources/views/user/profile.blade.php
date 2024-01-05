@@ -70,7 +70,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label><strong>{{trans('file.Projects')}} *</strong></label>
-                                    <select name="project_id[]" class="selectpicker form-control" data-live-search="true"   title="Select Project..." multiple>
+                                    <select name="project_id[]" class="selectpicker form-control" data-live-search="true"   title="Select Project..." multiple required>
                                         @foreach($projects as $project)
                                             <option value="{{$project->id}}" {{ in_array($project->id, $user_projects) ? 'selected' : '' }}>{{$project->name}}</option>
                                         @endforeach
@@ -80,7 +80,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label><strong>Working Days *</strong></label>
-                                            <select name="weak_start[]" class="selectpicker form-control" data-live-search="true" title="Select Working Days..." multiple>
+                                            <select name="weak_start[]" class="selectpicker form-control" data-live-search="true" title="Select Working Days..." multiple required>
                                                 @foreach($weak_days as $day)
                                                     <option value="{{$day}}" {{ in_array($day, $working_days) ? 'selected' : '' }}>{{$day}}</option>
                                                 @endforeach
