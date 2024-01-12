@@ -22,12 +22,6 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label>Going To <strong> *</strong> </label>
-                                    <input type="text" name="going_to" required class="form-control" placeholder="going to">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
                                     <label>Purpose <strong> *</strong> </label>
                                     <input type="text" name="purpose" required class="form-control" placeholder="Purpose">
                                 </div>
@@ -55,20 +49,34 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
+                                    <label>{{trans('file.Return')}} *</strong> </label>
+                                    <input type="datetime-local" name="return" required class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-4"></div>
+                            <hr>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Leaving From <strong> *</strong> </label>
+                                    <input type="text" name="leaving_from" required class="form-control" placeholder="Leaving From">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label>Going To <strong> *</strong> </label>
+                                    <input type="text" name="going_to" required class="form-control" placeholder="going to">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     <label>{{trans('file.From')}} *</strong> </label>
                                     <input type="datetime-local" name="from" required class="form-control">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <label>{{trans('file.To')}} *</strong> </label>
                                     <input type="datetime-local" name="to" required class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>{{trans('file.Return')}} *</strong> </label>
-                                    <input type="datetime-local" name="return" required class="form-control">
                                 </div>
                             </div>
                             <div class="col-md-12">

@@ -621,6 +621,73 @@
 						                </span>
                                     </td>
                                 </tr>
+
+                                <tr>
+                                    <td>Over Time Report</td>
+                                    <td class="report-permissions" colspan="5">
+						            	<span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("over_time_generate", $all_permission))
+                                                        <input type="checkbox" value="1" id="over_time_generate" name="over_time_generate" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="over_time_generate" name="over_time_generate">
+                                                    @endif
+								                    <label for="over_time_generate" class="padding05">Over Time Generate &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("over_time_report", $all_permission))
+                                                        <input type="checkbox" value="1" id="over_time_report" name="over_time_report" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="over_time_report" name="over_time_report">
+                                                    @endif
+								                    <label for="over_time_report" class="padding05"> OT Report &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("over_time_approve", $all_permission))
+                                                        <input type="checkbox" value="1" id="over_time_approve" name="over_time_approve" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="over_time_approve" name="over_time_approve">
+                                                    @endif
+								                    <label for="over_time_approve" class="padding05"> Approve &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("over_time_sign", $all_permission))
+                                                        <input type="checkbox" value="1" id="over_time_sign" name="over_time_sign" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="over_time_sign" name="over_time_sign">
+                                                    @endif
+								                    <label for="over_time_sign" class="padding05"> Sign &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                        <span>
+						                    <div aria-checked="false" aria-disabled="false">
+								                <div class="checkbox">
+							                    	@if(in_array("over_time_delete", $all_permission))
+                                                        <input type="checkbox" value="1" id="over_time_delete" name="over_time_delete" checked>
+                                                    @else
+                                                        <input type="checkbox" value="1" id="over_time_delete" name="over_time_delete">
+                                                    @endif
+								                    <label for="over_time_delete" class="padding05"> Delete &nbsp;&nbsp;</label>
+								                </div>
+								            </div>
+						                </span>
+                                    </td>
+                                </tr>
+
 						        <tr>
 						            <td>Others</td>
 						            <td class="report-permissions" colspan="5">
@@ -686,24 +753,24 @@
 						                </span>
 						            </td>
 						        </tr>
-						        <tr>
-						            <td>{{trans('file.Reports')}}</td>
-						            <td class="report-permissions" colspan="5">
-						            	<span>
-						                    <div aria-checked="false" aria-disabled="false">
-								                <div class="checkbox">
-							                    	@if(in_array("vote-report", $all_permission))
-							                    	<input type="checkbox" value="1" id="vote-report" name="vote-report" checked>
-							                    	@else
-							                    	<input type="checkbox" value="1" id="vote-report" name="vote-report">
-							                    	@endif
-								                    <label for="vote-report" class="padding05">Voting Rport &nbsp;&nbsp;</label>
-								                </div>
-								            </div>
-						                </span>
+{{--						        <tr>--}}
+{{--						            <td>{{trans('file.Reports')}}</td>--}}
+{{--						            <td class="report-permissions" colspan="5">--}}
+{{--						            	<span>--}}
+{{--						                    <div aria-checked="false" aria-disabled="false">--}}
+{{--								                <div class="checkbox">--}}
+{{--							                    	@if(in_array("vote-report", $all_permission))--}}
+{{--							                    	<input type="checkbox" value="1" id="vote-report" name="vote-report" checked>--}}
+{{--							                    	@else--}}
+{{--							                    	<input type="checkbox" value="1" id="vote-report" name="vote-report">--}}
+{{--							                    	@endif--}}
+{{--								                    <label for="vote-report" class="padding05">Voting Rport &nbsp;&nbsp;</label>--}}
+{{--								                </div>--}}
+{{--								            </div>--}}
+{{--						                </span>--}}
 
-						            </td>
-						        </tr>
+{{--						            </td>--}}
+{{--						        </tr>--}}
 						        <tr>
 						            <td>{{trans('file.settings')}}</td>
 						            <td class="report-permissions" colspan="5">

@@ -46,8 +46,8 @@
                             <div class="col-md-4">
                                 <label for="date">Select Report Type</label>
                                 <select name="report_type" class="selectpicker form-control" data-select="false" data-live-search="true">
-                                    <option value="0" selected>Time Sheet Report</option>
-                                    <option value="1">Over Time Report</option>
+                                    <option value="0">Time Sheet Report</option>
+                                    <option value="1" selected>Over Time Report</option>
                                     <option value="2">Both Reports</option>
                                 </select>
                             </div>
@@ -69,9 +69,9 @@
 
 <script type="text/javascript">
 
-    $("ul#timeSheet").siblings('a').attr('aria-expanded','true');
-    $("ul#timeSheet").addClass("show");
-    $("ul#timeSheet #timeSheet-menu-generate").addClass("active");
+    $("ul#overtime").siblings('a').attr('aria-expanded','true');
+    $("ul#overtime").addClass("show");
+    $("ul#overtime #overtime-menu-generate").addClass("active");
 
 
     $(".daterangepicker-field").daterangepicker({

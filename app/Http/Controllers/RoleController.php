@@ -214,6 +214,58 @@ class RoleController extends Controller
         else
             $role->revokePermissionTo('timesheet_delete');
 
+
+
+        if($request->has('over_time_generate')){
+            $permission = Permission::firstOrCreate(['name' => 'over_time_generate']);
+            if(!$role->hasPermissionTo('over_time_generate')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('over_time_generate');
+
+
+        if($request->has('over_time_report')){
+            $permission = Permission::firstOrCreate(['name' => 'over_time_report']);
+            if(!$role->hasPermissionTo('over_time_report')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('over_time_report');
+
+
+        if($request->has('over_time_approve')){
+            $permission = Permission::firstOrCreate(['name' => 'over_time_approve']);
+            if(!$role->hasPermissionTo('over_time_approve')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('over_time_approve');
+
+
+        if($request->has('over_time_sign')){
+            $permission = Permission::firstOrCreate(['name' => 'over_time_sign']);
+            if(!$role->hasPermissionTo('over_time_sign')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('over_time_sign');
+
+
+        if($request->has('over_time_delete')){
+            $permission = Permission::firstOrCreate(['name' => 'over_time_delete']);
+            if(!$role->hasPermissionTo('over_time_delete')){
+                $role->givePermissionTo($permission);
+            }
+        }
+        else
+            $role->revokePermissionTo('over_time_delete');
+
+
         if($request->has('one_time_otp')){
             $permission = Permission::firstOrCreate(['name' => 'one_time_otp']);
             if(!$role->hasPermissionTo('one_time_otp')){

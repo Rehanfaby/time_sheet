@@ -15,7 +15,7 @@
                     $interval = $d1->diff($d2);
                 @endphp
                 <div class="card" style="padding: 0 200px" id="mission-show">
-
+                    <img src="{{url('public/logo', $general_setting->email_header)}}" style=" width: 100%;">
                         <center><h1>{{trans('file.Mission Order')}}</h1></center>
                         <h2>Mission Order No: {{ $data->id }}</h2>
                         <center><h1>Staff Travelling</h1></center>
@@ -55,12 +55,12 @@
                                 <h3>Time : <span style="text-decoration: underline">{{ date('H:i:s', strtotime($data->to)) }}</span></h3>
                                 <h3 class="pt-4">Signature : <span>___________</span></h3>
                             </div>
-                            <div class="col-md-4 pt-4">
-                                <h3>|</h3>
-                                <h3>|</h3>
-                                <h3>|</h3>
-                                <h3 class="pt-4">Signature & Stamp</h3>
-                            </div>
+{{--                            <div class="col-md-4 pt-4">--}}
+{{--                                <h3>|</h3>--}}
+{{--                                <h3>|</h3>--}}
+{{--                                <h3>|</h3>--}}
+{{--                                <h3 class="pt-4">Signature & Stamp</h3>--}}
+{{--                            </div>--}}
                             __________________________________________________________________________________________________________________________________________________
                             <div class="col-md-12 pt-4"><h3 class = "text-center" style="text-decoration: underline">END OF TRIP</h3></div>
                             <div class="col-md-12">
@@ -87,6 +87,7 @@
                                 </div>
                         </div>
                     </div>
+                    <img src="{{url('public/logo', $general_setting->email_footer)}}" style=" width: 100%;">
                 </div>
             </div>
         </div>

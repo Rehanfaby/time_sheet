@@ -125,9 +125,6 @@ class MissionController extends Controller
     {
         $lims_category_data = Mission::findOrFail($id);
         $data = $request->all();
-        if($data['status'] != 0) {
-            $data['approve_by'] = Auth::user()->id;
-        }
 
         $data['traveler'] = implode(',', $data['traveler']);
         $lims_category_data->update($data);

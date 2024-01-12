@@ -112,6 +112,9 @@ Route::group(['middleware' => ['auth', 'active']], function() {
     Route::get('timesheet/generate', 'TimesheetController@generate')->name('timesheet.generate');
     Route::post('timesheet/generate', 'TimesheetController@generateStore')->name('timesheet.generate');
     Route::get('timesheet/report', 'TimesheetController@index')->name('timesheet.report');
+    Route::get('timesheet/signer', 'TimesheetController@signer')->name('timesheet.signer');
+    Route::get('timesheet/approver', 'TimesheetController@approver')->name('timesheet.approver');
+    Route::get('timesheet/approved', 'TimesheetController@approved')->name('timesheet.approved');
     Route::post('timesheet/report/approve', 'TimesheetController@multipleApprove')->name('timesheet.report.approve');
     Route::post('timesheet/report/sign', 'TimesheetController@multipleSign')->name('timesheet.report.sign');
     Route::post('timesheet/report/remove', 'TimesheetController@multipleRemove')->name('timesheet.report.remove');
@@ -119,6 +122,13 @@ Route::group(['middleware' => ['auth', 'active']], function() {
     Route::get('timesheet/approve/{id}', 'TimesheetController@approve')->name('timesheet.approve');
     Route::get('timesheet/sign/{id}', 'TimesheetController@sign')->name('timesheet.sign');
     Route::get('timesheet/show/{id}', 'TimesheetController@show')->name('timesheet.show');
+
+    Route::get('overtime/generate', 'OverTimeController@generate')->name('overtime.generate');
+    Route::get('overtime/report', 'OverTimeController@index')->name('overtime.report');
+    Route::get('overtime/signer', 'OverTimeController@signer')->name('overtime.signer');
+    Route::get('overtime/approver', 'OverTimeController@approver')->name('overtime.approver');
+    Route::get('overtime/approved', 'OverTimeController@approved')->name('overtime.approved');
+    Route::get('overtime/show/{id}', 'OverTimeController@show')->name('overtime.show');
 
 
     Route::get('user/role/{id}', 'UserController@userRole')->name('user.role');

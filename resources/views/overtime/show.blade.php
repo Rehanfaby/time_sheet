@@ -3,12 +3,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <a href="{{route('timesheet.report')}}" class="btn btn-info"><i class="dripicons-list"></i> Time Sheet Report </a>
+                <a href="{{route('overtime.report')}}" class="btn btn-info"><i class="dripicons-list"></i> Over Time Report </a>
                 <a id="print-btn" class="btn btn-warning"><i class="dripicons-print"></i> {{trans('file.Print')}} </a>
                 <div class="card" style="padding: 0 200px" id="mission-show">
                     <img src="{{url('public/logo', $general_setting->email_header)}}" style=" width: 100%;">
-                    <center><h1>{{trans('file.Time Sheet Report')}}</h1></center>
-                    <h2>Time Sheet Report No: {{ $data->id }}</h2>
+                    <center><h1>{{trans('file.Over Time Report')}}</h1></center>
+                    <h2>Over Time Report No: {{ $data->id }}</h2>
                     <div class="card-body">
                         <div class="row pt-4" >
                             <div class="col-md-3"><h3>Name : </h3></div>
@@ -52,7 +52,7 @@
                                         @endif
                                     </span></h3>
                             </div>
-                            ______________________________________________________________________________________________________________________________________________
+                            ____________________________________________________________________________________________________________________________________________
                             <div class="col-md-12 pt-4"><h3 class = "text-center" style="text-decoration: underline">Description</h3></div>
                             <div class="col-md-12">
                                 {{$data->description}}
@@ -67,9 +67,9 @@
 </section>
 
 <script type="text/javascript">
-    $("ul#timeSheet").siblings('a').attr('aria-expanded','true');
-    $("ul#timeSheet").addClass("show");
-    $("ul#timeSheet #timeSheet-menu-report").addClass("active");
+    $("ul#overtime").siblings('a').attr('aria-expanded','true');
+    $("ul#overtime").addClass("show");
+    $("ul#overtime #overtime-menu-report").addClass("active");
 
     $("#print-btn").on("click", function(){
         var divToPrint=document.getElementById('mission-show');

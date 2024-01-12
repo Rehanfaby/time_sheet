@@ -9,9 +9,9 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header mt-2">
-                <h3 class="text-center">Time Sheet Report</h3>
+                <h3 class="text-center">Over Time Report</h3>
             </div>
-            {!! Form::open(['route' => 'timesheet.report', 'method' => 'get']) !!}
+            {!! Form::open(['route' => 'overtime.report', 'method' => 'get']) !!}
             <div class="row mb-3">
                 <div class="col-md-4 offset-md-2 mt-3">
                     <div class="form-group row">
@@ -51,7 +51,7 @@
             </thead>
             <tbody>
                 @foreach($reports as $key=>$report)
-                <tr data-id="{{$report->id}}" class="clickable-row" style="cursor: pointer" data-href="{{ route('timesheet.show', $report->id) }}">
+                <tr data-id="{{$report->id}}" class="clickable-row" style="cursor: pointer" data-href="{{ route('overtime.show', $report->id) }}">
                     <td>{{$key}}</td>
                     <td>{{ $report->name}}</td>
                     <td>{{ $report->expected_hours}}</td>
@@ -60,33 +60,7 @@
                     <td><span class="badge badge-{{ $report->is_sign == 0 ? 'warning' : 'success'}}">{{ $report->is_sign == 0 ? 'Pending' : 'Signed'}}</span></td>
                     <td><span class="badge badge-{{ $report->is_approve == 0 ? 'warning' : 'success'}}">{{ $report->is_approve == 0 ? 'Pending' : 'Approved'}}</span></td>
                     <td>{{ $report->created_at }}</td>
-                    <td>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{trans('file.action')}}
-                                <span class="caret"></span>
-                                <span class="sr-only">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu edit-options dropdown-menu-right dropdown-default" user="menu">
-                                @if($report->is_sign == 0)
-                                    @if(in_array("timesheet_sign", $all_permission))
-                                        <li><a href="{{ route('timesheet.sign', $report->id) }}" class="btn btn-link" onclick="return confirmSign()"><i class="dripicons-pencil"></i> Sign</a></li>
-                                    @endif
-                                @endif
-                                @if($report->is_approve == 0)
-                                    @if(in_array("timesheet_approve", $all_permission))
-                                        <li><a href="{{ route('timesheet.approve', $report->id) }}" class="btn btn-link" onclick="return confirmApprove()"><i class="dripicons-checkmark"></i>Approve</a></li>
-                                    @endif
-                                @endif
-                                @if(in_array("timesheet_delete", $all_permission))
-                                {{ Form::open(['route' => ['timesheet.destroy', $report->id], 'method' => 'DELETE'] ) }}
-                                <li>
-                                    <button type="submit" class="btn btn-link" onclick="return confirmDelete()"><i class="dripicons-trash"></i> {{trans('file.delete')}}</button>
-                                </li>
-                                {{ Form::close() }}
-                                @endif
-                            </ul>
-                        </div>
-                    </td>
+                    @include('overtime.action')
                 </tr>
                 @endforeach
             </tbody>
@@ -96,9 +70,9 @@
 
 <script type="text/javascript">
 
-    $("ul#timeSheet").siblings('a').attr('aria-expanded','true');
-    $("ul#timeSheet").addClass("show");
-    $("ul#timeSheet #timeSheet-menu-report").addClass("active");
+    $("ul#overtime").siblings('a').attr('aria-expanded','true');
+    $("ul#overtime").addClass("show");
+    $("ul#overtime #overtime-menu-report").addClass("active");
 
     $(document).ready(function($) {
         $('.clickable-row td:not(:first-child):not(:last-child)').click(function () {
@@ -237,60 +211,60 @@
                     stripHtml: false
                 },
             },
-            {
-                text: '<i title="Approve" class="fa fa-check"></i>',
-                className: 'buttons-delete',
-                action: function ( e, dt, node, config ) {
-                    employee_id.length = 0;
-                    $(':checkbox:checked').each(function(i){
-                        if(i){
-                            employee_id[i-1] = $(this).closest('tr').data('id');
-                        }
-                    });
-                    if(employee_id.length && confirm("Are you sure want to Approve?")) {
-                        $.ajax({
-                            type:'POST',
-                            url:'/timesheet/report/approve',
-                            data:{
-                                employeeIdArray: employee_id
-                            },
-                            success:function(data){
-                                alert(data);
-                                location.reload()
-                            }
-                        });
-                    } else {
-                        alert('No Data is selected!');
-                    }
-                }
-            },
-            {
-                text: '<i title="Sign" class="fa fa-pencil"></i>',
-
-                action: function ( e, dt, node, config ) {
-                    employee_id.length = 0;
-                    $(':checkbox:checked').each(function(i){
-                        if(i){
-                            employee_id[i-1] = $(this).closest('tr').data('id');
-                        }
-                    });
-                    if(employee_id.length && confirm("Are you sure want to Sign?")) {
-                        $.ajax({
-                            type:'POST',
-                            url:'/timesheet/report/sign',
-                            data:{
-                                employeeIdArray: employee_id
-                            },
-                            success:function(data){
-                                alert(data);
-                                location.reload()
-                            }
-                        });
-                    } else {
-                        alert('No Data is selected!');
-                    }
-                }
-            },
+            // {
+            //     text: '<i title="Approve" class="fa fa-check"></i>',
+            //     className: 'buttons-delete',
+            //     action: function ( e, dt, node, config ) {
+            //         employee_id.length = 0;
+            //         $(':checkbox:checked').each(function(i){
+            //             if(i){
+            //                 employee_id[i-1] = $(this).closest('tr').data('id');
+            //             }
+            //         });
+            //         if(employee_id.length && confirm("Are you sure want to Approve?")) {
+            //             $.ajax({
+            //                 type:'POST',
+            //                 url:'/timesheet/report/approve',
+            //                 data:{
+            //                     employeeIdArray: employee_id
+            //                 },
+            //                 success:function(data){
+            //                     alert(data);
+            //                     location.reload()
+            //                 }
+            //             });
+            //         } else {
+            //             alert('No Data is selected!');
+            //         }
+            //     }
+            // },
+            // {
+            //     text: '<i title="Sign" class="fa fa-pencil"></i>',
+            //
+            //     action: function ( e, dt, node, config ) {
+            //         employee_id.length = 0;
+            //         $(':checkbox:checked').each(function(i){
+            //             if(i){
+            //                 employee_id[i-1] = $(this).closest('tr').data('id');
+            //             }
+            //         });
+            //         if(employee_id.length && confirm("Are you sure want to Sign?")) {
+            //             $.ajax({
+            //                 type:'POST',
+            //                 url:'/timesheet/report/sign',
+            //                 data:{
+            //                     employeeIdArray: employee_id
+            //                 },
+            //                 success:function(data){
+            //                     alert(data);
+            //                     location.reload()
+            //                 }
+            //             });
+            //         } else {
+            //             alert('No Data is selected!');
+            //         }
+            //     }
+            // },
             {
                 text: '<i title="Sign" class="dripicons-cross"></i>',
                 className: 'buttons-delete',

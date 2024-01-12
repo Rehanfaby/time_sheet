@@ -9,9 +9,9 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header mt-2">
-                <h3 class="text-center">Time Sheet Report</h3>
+                <h3 class="text-center">Time Sheet Awaiting Approver</h3>
             </div>
-            {!! Form::open(['route' => 'timesheet.report', 'method' => 'get']) !!}
+            {!! Form::open(['route' => 'timesheet.approver', 'method' => 'get']) !!}
             <div class="row mb-3">
                 <div class="col-md-4 offset-md-2 mt-3">
                     <div class="form-group row">
@@ -98,7 +98,7 @@
 
     $("ul#timeSheet").siblings('a').attr('aria-expanded','true');
     $("ul#timeSheet").addClass("show");
-    $("ul#timeSheet #timeSheet-menu-report").addClass("active");
+    $("ul#timeSheet #timeSheet-menu-approver").addClass("active");
 
     $(document).ready(function($) {
         $('.clickable-row td:not(:first-child):not(:last-child)').click(function () {

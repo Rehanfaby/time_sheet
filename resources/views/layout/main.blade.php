@@ -183,10 +183,34 @@
                             <li id="timeSheet-menu-monthly"><a href="{{url('tasks/index/monthly/'.date('Y').'/'.date('m'))}}">{{ __('file.Monthly Time Sheet') }}</a></li>
                         @endif
                         @if(in_array('timesheet_generate', $all_permission))
-                            <li id="timeSheet-menu-generate"><a href="{{route('timesheet.generate')}}">{{ __('file.Time Sheet Generate') }}</a></li>
+                            <li id="timeSheet-menu-generate"><a href="{{route('timesheet.generate')}}">{{ __('file.Generate Time Sheet') }}</a></li>
                         @endif
                         @if(in_array('timesheet_report', $all_permission))
                             <li id="timeSheet-menu-report"><a href="{{route('timesheet.report')}}">{{ __('file.Time Sheet Report') }}</a></li>
+                                @if(in_array("timesheet_sign", $all_permission))
+                                    <li id="timeSheet-menu-signer"><a href="{{route('timesheet.signer')}}">{{ __('file.Time Sheet Awaiting Signer') }}</a></li>
+                                @endif
+                                @if(in_array("timesheet_approve", $all_permission))
+                                    <li id="timeSheet-menu-approver"><a href="{{route('timesheet.approver')}}">{{ __('file.Time Sheet Awaiting Approver') }}</a></li>
+                                @endif
+                            <li id="timeSheet-menu-approved"><a href="{{route('timesheet.approved')}}">{{ __('file.Time Sheet Approved') }}</a></li>
+                        @endif
+                    </ul>
+                </li>
+                <li><a href="#overtime" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-money"></i><span>{{ __('file.Over Time') }}</span></a>
+                    <ul id="overtime" class="collapse list-unstyled ">
+                        @if(in_array('over_time_generate', $all_permission))
+                            <li id="overtime-menu-generate"><a href="{{route('overtime.generate')}}">{{ __('file.Generate Over Time') }}</a></li>
+                        @endif
+                        @if(in_array('over_time_report', $all_permission))
+                            <li id="overtime-menu-report"><a href="{{route('overtime.report')}}">{{ __('file.Over Time Report') }}</a></li>
+                            @if(in_array("over_time_sign", $all_permission))
+                                <li id="overtime-menu-signer"><a href="{{route('overtime.signer')}}">{{ __('file.OT Awaiting Signer') }}</a></li>
+                            @endif
+                            @if(in_array("over_time_approve", $all_permission))
+                                <li id="overtime-menu-approver"><a href="{{route('overtime.approver')}}">{{ __('file.OT Awaiting Approver') }}</a></li>
+                            @endif
+                            <li id="overtime-menu-approved"><a href="{{route('overtime.approved')}}">{{ __('file.OT Approved') }}</a></li>
                         @endif
                     </ul>
                 </li>

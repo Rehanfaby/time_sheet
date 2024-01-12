@@ -33,6 +33,11 @@ class TimesheetController extends Controller
         });
     }
 
+    private function timeSheetReport()
+    {
+        return Timesheetreport::where('is_over_time', 0);
+    }
+
     public function generate()
     {
         $role = Role::find(Auth::user()->role_id);
@@ -65,22 +70,61 @@ class TimesheetController extends Controller
                 if ($expected_working_days < $total_working_days) {
                     $over_time = $total_working_days - $expected_working_days;
                 }
+                if ($request->report_type == 0) {
+                    Timesheetreport::create([
+                        'name' => str_replace(' ', '', ($user_data->name)) . ' - ' . $request->start_date . ' - ' . $request->end_date,
+                        'user_id' => $user,
+                        'expected_hours' => $expected_working_days,
+                        'total_hours' => $total_working_days,
+                        'over_time' => $over_time,
+                        'staff' => $request->staffs != null ? implode(',', $request->staffs) : null,
+                        'from' => $request->start_date,
+                        'to' => $request->end_date,
+                        'description' => $request->description
+                    ]);
+                } elseif ($request->report_type == 1){
+                    Timesheetreport::create([
+                        'name' => str_replace(' ', '', ($user_data->name)) . ' - ' . $request->start_date . ' - ' . $request->end_date,
+                        'user_id' => $user,
+                        'expected_hours' => $expected_working_days,
+                        'total_hours' => $total_working_days,
+                        'over_time' => $over_time,
+                        'staff' => $request->staffs != null ? implode(',', $request->staffs) : null,
+                        'from' => $request->start_date,
+                        'to' => $request->end_date,
+                        'description' => $request->description,
+                        'is_over_time' => 1,
+                    ]);
+                } elseif ($request->report_type == 2){
+                    Timesheetreport::create([
+                        'name' => str_replace(' ', '', ($user_data->name)) . ' - ' . $request->start_date . ' - ' . $request->end_date,
+                        'user_id' => $user,
+                        'expected_hours' => $expected_working_days,
+                        'total_hours' => $total_working_days,
+                        'over_time' => $over_time,
+                        'staff' => $request->staffs != null ? implode(',', $request->staffs) : null,
+                        'from' => $request->start_date,
+                        'to' => $request->end_date,
+                        'description' => $request->description
+                    ]);
+                    Timesheetreport::create([
+                        'name' => str_replace(' ', '', ($user_data->name)) . ' - ' . $request->start_date . ' - ' . $request->end_date,
+                        'user_id' => $user,
+                        'expected_hours' => $expected_working_days,
+                        'total_hours' => $total_working_days,
+                        'over_time' => $over_time,
+                        'staff' => $request->staffs != null ? implode(',', $request->staffs) : null,
+                        'from' => $request->start_date,
+                        'to' => $request->end_date,
+                        'description' => $request->description,
+                        'is_over_time' => 1,
+                    ]);
+                }
 
-                Timesheetreport::create([
-                    'name' => str_replace(' ', '', ($user_data->name)) . ' - ' . $request->start_date . ' - ' . $request->end_date,
-                    'user_id' => $user,
-                    'expected_hours' => $expected_working_days,
-                    'total_hours' => $total_working_days,
-                    'over_time' => $over_time,
-                    'staff' => $request->staffs != null ? implode(',', $request->staffs) : null,
-                    'from' => $request->start_date,
-                    'to' => $request->end_date,
-                    'description' => $request->description
-                ]);
             }
         }
 
-        return back()->with('message', 'time sheet reports has been generated');
+        return back()->with('message', 'Reports has been generated');
     }
 
     public function multipleApprove(Request $request)
@@ -128,7 +172,7 @@ class TimesheetController extends Controller
                     }
                     Timesheetreport::where('id', $id)->delete();
                 }
-                return 'Selected time sheet reports has been deleted successfully!';
+                return 'Selected Data has been deleted successfully!';
             }
         }
         return "Sorry, You don't have permissions";
@@ -160,15 +204,63 @@ class TimesheetController extends Controller
             $end_date = date('Y-m-d');
         }
 
-        $reports = Timesheetreport::whereDate('created_at', '>=', $start_date)
+        $reports = $this->timeSheetReport()->whereDate('created_at', '>=', $start_date)
             ->whereDate('created_at', '<=', $end_date)->orderByDesc('id')->get();
         return view('timesheet.index', compact('reports', 'start_date', 'end_date'));
+    }
+
+    public function signer(Request $request)
+    {
+        if($request->start_date) {
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+        }
+        else {
+            $start_date = '2023-07-01';
+            $end_date = date('Y-m-d');
+        }
+
+        $reports = $this->timeSheetReport()->where('is_sign', 0)->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)->orderByDesc('id')->get();
+        return view('timesheet.signer', compact('reports', 'start_date', 'end_date'));
+    }
+
+    public function approver(Request $request)
+    {
+        if($request->start_date) {
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+        }
+        else {
+            $start_date = '2023-07-01';
+            $end_date = date('Y-m-d');
+        }
+
+        $reports = $this->timeSheetReport()->where('is_approve', 0)->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)->orderByDesc('id')->get();
+        return view('timesheet.approver', compact('reports', 'start_date', 'end_date'));
+    }
+
+    public function approved(Request $request)
+    {
+        if($request->start_date) {
+            $start_date = $request->start_date;
+            $end_date = $request->end_date;
+        }
+        else {
+            $start_date = '2023-07-01';
+            $end_date = date('Y-m-d');
+        }
+
+        $reports = $this->timeSheetReport()->where('is_sign', 1)->where('is_approve', 1)->whereDate('created_at', '>=', $start_date)
+            ->whereDate('created_at', '<=', $end_date)->orderByDesc('id')->get();
+        return view('timesheet.approved', compact('reports', 'start_date', 'end_date'));
     }
 
     public function destroy($id)
     {
         Timesheetreport::where('id', $id)->delete();
-        return back()->with('not_permitted', 'time sheet reports has been deleted');
+        return back()->with('not_permitted', 'Data has been deleted');
     }
 
     public function show($id)
@@ -180,12 +272,12 @@ class TimesheetController extends Controller
     public function approve($id)
     {
         Timesheetreport::where('id', $id)->update(['is_approve' => 1, 'approved_by' => Auth::user()->id]);
-        return back()->with('message', 'time sheet reports has been approved');
+        return back()->with('message', 'Report has been approved');
     }
 
     public function sign($id)
     {
         Timesheetreport::where('id', $id)->update(['is_sign' => 1, 'signed_by' => Auth::user()->id]);
-        return back()->with('message', 'time sheet reports has been signed');
+        return back()->with('message', 'Report has been signed');
     }
 }
