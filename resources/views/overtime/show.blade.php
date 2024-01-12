@@ -29,7 +29,7 @@
                             <div class="col-md-4 pt-4">
                                 <h3>From : <span>_____________</span></h3>
                                 <h3>Date : <span style="text-decoration: underline">{{ date('d-M-Y', strtotime($data->from)) }}</span></h3>
-                                <h3>Time : <span style="text-decoration: underline">{{ date('H:i:s', strtotime($data->from)) }}</span></h3>
+{{--                                <h3>Time : <span style="text-decoration: underline">{{ date('H:i:s', strtotime($data->from)) }}</span></h3>--}}
                                 <h3 class="pt-4">Signer : <span>
                                             @if($data->is_sign == 1)
                                                 @php
@@ -42,7 +42,7 @@
                             <div class="col-md-4 pt-4">
                                 <h3>To : <span>_____________</span></h3>
                                 <h3>Date : <span style="text-decoration: underline">{{ date('d-M-Y', strtotime($data->to)) }}</span></h3>
-                                <h3>Time : <span style="text-decoration: underline">{{ date('H:i:s', strtotime($data->to)) }}</span></h3>
+{{--                                <h3>Time : <span style="text-decoration: underline">{{ date('H:i:s', strtotime($data->to)) }}</span></h3>--}}
                                 <h3 class="pt-4">Approve : <span>
                                         @if($data->is_approve == 1)
                                             @php

@@ -41,10 +41,14 @@ class TimesheetController extends Controller
     public function generate()
     {
         $role = Role::find(Auth::user()->role_id);
-        if($role->hasPermissionTo('time-sheet-add')){
+        if($role->hasPermissionTo('timesheet_generate')){
             $start_date = date('y-m-01');
             $end_date = date('y-m-d');
-            $users = User::where('is_active', true)->where('role_id', 2)->get();
+            if ($role->id == 2) {
+                $users = User::where('id', Auth::user()->id)->get();
+            } else {
+                $users = User::where('is_active', true)->where('role_id', 2)->get();
+            }
             $staff = User::where('is_active', true)->where('role_id', '!=', 2)->get();
 
             return view('timesheet.generate', compact('users', 'staff', 'start_date', 'end_date'));

@@ -100,7 +100,7 @@ class HomeController extends Controller
 
     public function forgotPasswordStore(Request $request)
     {
-        $user = User::where('phone', $request->phone)->where('role_id', 5)->where('is_active', true)->first();
+        $user = User::where('phone', $request->phone)->where('is_active', true)->first();
         if ($user) {
             $otp = $this->sendOTP($user);
             Session::put('otp', $otp);
