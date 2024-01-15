@@ -18,7 +18,7 @@
                         {!! Form::open(['route' => 'timesheet.generate', 'method' => 'post', 'files' => true]) !!}
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="date">Users <strong>*</strong></label>
+                                <label for="date">Employees <strong>*</strong></label>
                                 <select name="users[]" required class="selectpicker form-control to-user" data-select="false" data-live-search="true" multiple>
                                     <option value="">-- Select All --</option>
                                     @foreach($users as $u)
@@ -34,15 +34,15 @@
                                     <input type="hidden" name="end_date" value="{{@$end_date}}" />
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="date">Staff</label>
-                                <select name="staffs[]" class="selectpicker form-control to-user" data-select="false" data-live-search="true" multiple>
-                                    <option value="">-- Select All --</option>
-                                    @foreach($staff as $u)
-                                        <option value="{{$u->id}}">{{$u->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+{{--                            <div class="col-md-4">--}}
+{{--                                <label for="date">Staff</label>--}}
+{{--                                <select name="staffs[]" class="selectpicker form-control to-user" data-select="false" data-live-search="true" multiple>--}}
+{{--                                    <option value="">-- Select All --</option>--}}
+{{--                                    @foreach($staff as $u)--}}
+{{--                                        <option value="{{$u->id}}">{{$u->name}}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
                             <div class="col-md-4">
                                 <label for="date">Select Report Type</label>
                                 <select name="report_type" class="selectpicker form-control" data-select="false" data-live-search="true">

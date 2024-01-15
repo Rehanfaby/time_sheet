@@ -1,12 +1,30 @@
 @extends('layout.main') @section('content')
-<section class="forms">
+
+
+    @if($errors->has('name'))
+        <div class="alert alert-danger alert-dismissible text-center">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ $errors->first('name') }}</div>
+    @endif
+    @if(session()->has('message'))
+        <div class="alert alert-success alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('message') }}</div>
+    @endif
+    @if(session()->has('not_permitted'))
+        <div class="alert alert-danger alert-dismissible text-center"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>{{ session()->get('not_permitted') }}</div>
+    @endif
+
+
+
+    <section class="forms">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <a href="{{route('mission.index')}}" class="btn btn-info"><i class="dripicons-list"></i> {{trans('file.Mission Order List')}} </a>
-{{--                <a target="__blank" href="{{route('mission.print', ['id' => $data->id])}}" class="btn btn-warning"><i class="dripicons-print"></i> {{trans('file.Print')}} </a>--}}
-
                 <a id="print-btn" class="btn btn-warning"><i class="dripicons-print"></i> {{trans('file.Print')}} </a>
+
+                @if(in_array("mission-order-approve", $all_permission))
+                    <a onclick="return confirmApprove(1)" href="{{ route('mission.approve', ['id' => $data->id, 'status' => 1]) }}" class="btn btn-success"><i class="dripicons-checkmark"></i> Approve </a>
+                    <a onclick="return confirmApprove(2)" href="{{ route('mission.approve', ['id' => $data->id, 'status' => 2]) }}" class="btn btn-danger"><i class="dripicons-cross"></i> Reject </a>
+                @endif
                 @php
                     $traveler_no = 1;
                     $travelers = explode(",", $data->traveler);
@@ -28,20 +46,20 @@
                     </table>
                     <div class="card-body">
                         <div class="row pt-4" >
-                            <div class="col-md-3"><h3>Going To : </h3></div>
-                            <div class="col-md-9" style="text-decoration: underline; display: block">{{ $data->going_to }}</h6></div>
+                            <div class="col-md-6"><h3>Going To : </h3></div>
+                            <div class="col-md-6" style="text-decoration: underline; display: block">{{ $data->going_to }}</h6></div>
 
-                            <div class="col-md-3"><h3>Purpose Of : </h3></div>
-                            <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ $data->purpose }}</h6></div>
+                            <div class="col-md-6"><h3>Purpose Of : </h3></div>
+                            <div class="col-md-6" style="text-decoration: underline; display: block"><h6>{{ $data->purpose }}</h6></div>
 
-                            <div class="col-md-3"><h3>Means Of Transport : </h3></div>
-                            <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ $data->method }}</h6></div>
+                            <div class="col-md-6"><h3>Means Of Transport : </h3></div>
+                            <div class="col-md-6" style="text-decoration: underline; display: block"><h6>{{ $data->method }}</h6></div>
 
-                            <div class="col-md-3"><h3>Date Of Return : </h3></div>
-                            <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ $data->return }}</h6></div>
+                            <div class="col-md-6"><h3>Date Of Return : </h3></div>
+                            <div class="col-md-6" style="text-decoration: underline; display: block"><h6>{{ $data->return }}</h6></div>
 
-                            <div class="col-md-3"><h3>Deliverd By : </h3></div>
-                            <div class="col-md-9" style="text-decoration: underline; display: block"><h6>{{ @$data->user->name }}</h6></div>
+                            <div class="col-md-6"><h3>Deliverd By : </h3></div>
+                            <div class="col-md-6" style="text-decoration: underline; display: block"><h6>{{ @$data->user->name }}</h6></div>
 
                             <div class="col-md-4 pt-4">
                                 <h3>From : <span>_____________</span></h3>
@@ -98,6 +116,22 @@
     $("ul#missions").siblings('a').attr('aria-expanded','true');
     $("ul#missions").addClass("show");
     $("ul#missions #missions-menu").addClass("active");
+
+
+
+    function confirmApprove(status) {
+
+        if (status === 1) {
+            var msg = "Are you sure want to approve this mission order?";
+        } else {
+            var msg = "Are you sure want to reject this mission order?";
+        }
+
+        if (confirm(msg)) {
+            return true;
+        }
+        return false;
+    }
 
     $("#print-btn").on("click", function(){
         var divToPrint=document.getElementById('mission-show');

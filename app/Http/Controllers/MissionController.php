@@ -71,7 +71,7 @@ class MissionController extends Controller
         } else {
             $msg = "Mission order rejected successfuly";
         }
-        return redirect('mission')->with('message', $msg);
+        return back()->with('message', $msg);
     }
 
     public function multipleApprove(Request $request)
